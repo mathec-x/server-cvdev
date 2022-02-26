@@ -1,18 +1,25 @@
-const io = require("../io");
+/**
+ * 
+ * @param {string} title 
+ * @param {any} value 
+ */
 
 const writelog = (title, value) => {
   if(process.env.NODE_ENV !== 'production'){
-    console.log("\n_______________________________");
-    console.log('['+title+']');
+    console.log("\n\x1b[35m["+title+"]\x1b[0m");
     console.log(value);
   }
 }
 
 /**
- * @type {(req: import("express").Request, res: import("express").Response,next: import("express").NextFunction) => any}
+ * @type {(io: import('socket.io').Server ) => (req: import("express").Request, res: import("express").Response,next: import("express").NextFunction) => any}
  */
- const expressSocket = (req, res, next) => {
+ const expressSocket = (io) => (req, res, next) => {
     req.socketId = typeof req.headers['socket-id'] === 'string' && req.headers['socket-id'] ? req.headers['socket-id'] : null;
+
+    /**
+     * @type {string|string[]}
+     */
     let to = req.socketId;
 
     res.to = (x) => {
@@ -24,8 +31,7 @@ const writelog = (title, value) => {
       writelog('socket.req.subscription', req.subscription)
       to = 'subscribed::' + req.subscription;
       return res;
-    };
-  
+    };  
   
     res.dispatch = (type, payload) => {
       if (!to || req.query.noDispatch) {
@@ -33,13 +39,12 @@ const writelog = (title, value) => {
         return res.header('dispatch', type).json(payload);
   
       } else {
-        writelog('dispatch socket event', {to});
+        writelog(`${req.socketId} dispatch socket event to`, to);
           
         if (to instanceof Array) {
-          to.forEach((room) => {
-            io.to(room).emit('dispatch', { type, payload });
-          });
-  
+          for (let index = 0; index < to.length; index++) {
+            io.to(to[index]).emit('dispatch', { type, payload });            
+          }  
         } else {
           io.to(to).emit('dispatch', { type, payload });
         }

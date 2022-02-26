@@ -4,6 +4,5 @@
  */
 
 exports.get = (req,res) => {
-    console.log(req.socketId);
-    res.dispatch('test', {data: 'test'})
+    res.dispatch('cadidates:create', {data: 'test'})
 }

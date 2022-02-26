@@ -9,9 +9,9 @@
     "db:down": "docker-compose down",
     "db:init": "prisma init",
     "db:studio": "prisma studio",
-    "db:generate": "prisma db generate",
-    "db:pull": "prisma db pull && db:generate",
-    "db:push": "prisma db push && db:generate"
+    "db:generate": "prisma generate",
+    "db:pull": "prisma db pull && prisma generate",
+    "db:push": "prisma db push && prisma generate"
   },
   "keywords": [],
   "author": "",
