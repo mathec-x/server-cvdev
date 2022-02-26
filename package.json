@@ -1,0 +1,43 @@
+{
+  "name": "server-cvdev",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "docker-compose up & nodemon ./src/server",
+    "db:up": "docker-compose up",
+    "db:down": "docker-compose down",
+    "db:init": "prisma init",
+    "db:studio": "prisma studio",
+    "db:generate": "prisma db generate",
+    "db:pull": "prisma db pull && db:generate",
+    "db:push": "prisma db push && db:generate"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^3.10.0",
+    "bcrypt": "^5.0.1",
+    "compression": "^1.7.4",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "express-next-api": "^1.0.11",
+    "express-useragent": "^1.0.15",
+    "faker": "^6.6.6",
+    "jsonwebtoken": "^8.5.1",
+    "moment": "^2.29.1",
+    "multer": "^1.4.4",
+    "node-fetch": "^3.2.0",
+    "pdf-lib": "^1.17.1",
+    "prototypes-array": "^1.0.6",
+    "prototypes-string": "^1.0.8",
+    "socket.io": "^4.4.1",
+    "socket.io-fs-router": "^1.0.3",
+    "socket.io-msgpack-parser": "^3.0.1"
+  },
+  "devDependencies": {
+    "@types/server": "file:@types",
+    "prisma": "^3.10.0"
+  }
+}
