@@ -26,13 +26,17 @@ const socketConnection = (socket) => {
     }
 
     socket.on('subscribe', (nick) => {
-        console.log('subscribe to', nick);
         db.candidate.findFirst({
             where: {nick},
             select: md.candidates.select
-        }).then( candidate => {
-            socket.join(candidate.nick);
-            socket.emit('dispatch', { type: 'candidate:mount', payload: candidate });
+        }).then((candidate) => {
+            if(candidate){
+                console.log('subscribe to', nick);
+                socket.join(candidate.nick);
+                socket.emit('dispatch', { type: 'candidate:mount', payload: candidate });
+            }
+        }).catch( () => {
+            socket.emit('dispatch', { type: 'candidate:mount', payload: {} });
         })
     })
 
