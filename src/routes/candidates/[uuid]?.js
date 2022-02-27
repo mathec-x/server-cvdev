@@ -17,6 +17,7 @@ exports.post = async (req, res) => {
             },
         });
 
+        res.to(data.nick).dispatch({ type: 'candidate:mount', payload: data });
         res.$emit('dispatch', { type: 'candidates:create', payload: data });
         return res.sendStatus(201);
 

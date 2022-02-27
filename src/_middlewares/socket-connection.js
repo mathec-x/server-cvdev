@@ -32,12 +32,13 @@ const socketConnection = (socket) => {
             select: md.candidates.select
         }).then( candidate => {
             socket.join(candidate.nick);
-            socket.emit('subscription', candidate)
+            socket.emit('dispatch', { type: 'candidate:mount', payload: candidate });
         })
     })
 
     socket.on('unsubscribe', (nick) => {
         console.log('unsubscribe to', nick);
+        socket.emit('dispatch', { type: 'candidate:mount', payload: {} });
         socket.leave(nick);
     })
 }
