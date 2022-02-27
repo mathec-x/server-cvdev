@@ -1,24 +1,13 @@
-
 const jwt = require('jsonwebtoken');
-
-const verify = async (/** @type {string} */ token, /** @type {import('express').Request} */ req) => {
-    if (req.terminal === 'app')
-        return jwt.verify(token, process.env.JWT_SECRET)
-
-    if (req.terminal === 'api') {
-        /**
-         * @todo Implement api's
-         */
-    }
-
-    throw "None Terminal";
-}
 
 /**
  * @type {(req: import("express").Request, res: import("express").Response,next: import("express").NextFunction) => any}
  */
-const accessToken = (req, res, next) => {
-    let /** @type {any} */ token;
+const accessToken = async (req, res, next) => {
+    /** 
+     * @type {any} 
+     */ 
+    let token;
     req.subscription = '';
 
     if (req.headers['x-access-token']) {
@@ -30,30 +19,26 @@ const accessToken = (req, res, next) => {
         [, token] = req.headers['authorization'].split(' ');
     }
 
-    if (!token)
-        return res.status(401).json({ auth: false, message: 'No token provided.' });
+    if (req.headers['subscription'] && typeof req.headers['subscription'] === 'string') {
+        req.subscription = req.headers['subscription']
+    }
 
     try {
-        // const data = jwt.verify(token, req.terminal);
-        if (req.headers['subscription'] && typeof req.headers['subscription'] === 'string') {
-            req.subscription = req.headers['subscription']
-        }
-
-        verify(token, req).then(data => {
+        if(token){
+            const data = jwt.verify(token, process.env.JWT_SECRET);
             /**
              * @todo Implement is token active
              */
             if (data && typeof data === 'object') {
                 req.user = { ...data, token };
             }
-
-            next();
-        })
-
+        }
     } catch (error) {
         console.log('[jwt error catch]', error);
         return res.status(505).json({ auth: false, message: 'Failed to authenticate token.' });
     }
+
+    next();
 };
 
 /** 
