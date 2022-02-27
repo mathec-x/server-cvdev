@@ -7,6 +7,7 @@ const expressSocket = require('./_middlewares/express-socket');
 const { nextApi } = require('express-next-api');
 const { Server } = require('socket.io');
 const ioparser = require('socket.io-msgpack-parser');
+const accessToken = require('./_middlewares/access-token');
 
 const app = express();
 const server = http.createServer(app);
@@ -23,6 +24,7 @@ io.on('connection', (socket) => {
 });
 
 app.use(cors())
+    .use(accessToken)
     .use(expressSocket(io))
     .use(compression())
     .use(express.urlencoded({ extended: true }))

@@ -37,7 +37,7 @@ const jsonwebtoken = require("jsonwebtoken");
                 os: req.useragent.os,
                 platform: req.useragent.platform,
                 ip: req.headers['x-forwarded-for'] || req.socket.remoteAddress 
-            }, process.env.JWR_SECRET)
+            }, process.env.JWT_SECRET)
 
             const userData = {
                 token,
