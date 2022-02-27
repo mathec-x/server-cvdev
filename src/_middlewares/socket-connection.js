@@ -13,7 +13,7 @@ const socketConnection = (socket) => {
                 select: md.user.select
             }).then( ({ candidates, ...user }) => {
                 console.log('socket', socket.id, user.email);
-                socket.emit('dispatch', { type: 'user:mount', payload: user });
+                socket.emit('dispatch', { type: 'user:mount', payload: {...user, token: socket.user.token} });
                 socket.emit('dispatch', { type: 'candidates:mount', payload: candidates });
             });
 

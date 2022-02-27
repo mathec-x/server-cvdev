@@ -30,7 +30,8 @@ declare module "jsonwebtoken" {
         browser: string,
         os: string,
         platform: string,
-        ip: string 
+        ip: string,
+        token: string
     }
 }
 
