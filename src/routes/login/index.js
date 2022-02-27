@@ -7,19 +7,14 @@ const jsonwebtoken = require("jsonwebtoken");
  exports.post = async (req, res) => {
     let status = 200;
     try {
-        const include = {
-            candidates: true
-        }
 
         let user = await db.user.findFirst({
-            include,
             where: { email: req.body.login },
         });
 
         
         if(!user){
             user = await db.user.create({
-                include,
                 data: {
                     email: req.body.login,
                     password: bcrypt.hashSync(req.body.password, 10)
@@ -45,11 +40,7 @@ const jsonwebtoken = require("jsonwebtoken");
                 email: user.email
             }
 
-            res.$emit('login', token);
-            res.$emit('dispatch', { type: 'cadidates:mount', payload: user.candidates });
-            res.$emit('dispatch', { type: 'user:mount', payload: userData });
-
-            return res.sendStatus(status);
+            return res.status(status).json(userData);
         }
 
         return res.sendStatus(401);

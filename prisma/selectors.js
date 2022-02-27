@@ -1,3 +1,4 @@
+/** type { import('@prisma/client').Prisma.AddressArgs } */
 exports.address = {
     select: {
         cep: true,
@@ -11,6 +12,7 @@ exports.address = {
     }
 }
 
+/** type { import('@prisma/client').Prisma.ContactArgs } */
 exports.contacts = {
     select: {
         uuid: true,
@@ -19,6 +21,7 @@ exports.contacts = {
     }
 }
 
+/** type { import('@prisma/client').Prisma.CandidateArgs } */
 exports.candidates = {
     select: {
         email: true,
@@ -28,5 +31,14 @@ exports.candidates = {
         uuid: true,
         address: this.address,
         contacts: this.contacts
+    }
+}
+
+/** type { import('@prisma/client').Prisma.UserArgs } */
+exports.user = {
+    select: {
+        email: true,
+        uuid: true,
+        candidates: this.candidates
     }
 }

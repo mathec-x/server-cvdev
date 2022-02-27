@@ -9,6 +9,7 @@ const { Server } = require('socket.io');
 const ioparser = require('socket.io-msgpack-parser');
 const accessToken = require('./_middlewares/access-token');
 const handshakeToken = require('./_middlewares/handshake-token');
+const socketConnection = require('./_middlewares/socket-connection');
 
 const app = express();
 const server = http.createServer(app);
@@ -22,12 +23,7 @@ const io = new Server(server, {
 
 io
 .use(handshakeToken)
-.on('connection', (socket) => {
-    if(socket.user){        
-        console.log('socket', socket.id, socket.user.uuid);
-        socket.join(socket.user.uuid);
-    }
-});
+.on('connection', socketConnection);
 
 app.use(cors())
     .use(accessToken)

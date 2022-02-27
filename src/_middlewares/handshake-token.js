@@ -1,8 +1,8 @@
 const jwt = require('jsonwebtoken');
 
 /** 
- * param {import('socket.io').Socket} socket 
- * param {import('express').NextFunction} next 
+ * @param {import('socket.io').Socket} socket 
+ * @param {import('express').NextFunction} next 
  */
 const handshakeToken = (socket, next) => {
   const { token } = socket.handshake.auth;
