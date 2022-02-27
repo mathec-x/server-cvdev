@@ -19,7 +19,7 @@ declare module 'socket.io' {
         (this: Namespace, socket: Socket, next: Function): void
     }
     interface Socket {
-        user?: jwt.JwtPayload
+        user?: JwtPayload
     }
     interface Namespace { }
 }
