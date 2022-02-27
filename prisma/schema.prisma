@@ -34,6 +34,7 @@ model Address {
 model Candidate {
   id    Int    @id @default(autoincrement())
   uuid  String @unique @default(uuid())
+  nick  String @unique
   email String
   name  String
   image String
@@ -43,6 +44,7 @@ model Candidate {
   address   Address   @relation(fields: [addressId], references: [id])
   addressId Int
   contacts  Contact[]
+  skills    Skill[]
 }
 
 model Contact {
@@ -55,12 +57,41 @@ model Contact {
 }
 
 model Skill {
-  id          Int     @id @default(autoincrement())
-  uuid        String  @unique @default(uuid())
-  tag         String  @unique
-  title       String  @unique
+  id        Int         @id @default(autoincrement())
+  uuid      String      @unique @default(uuid())
+  tag       String      @unique
+  title     String      @unique
+  libs      SkillLab[]
+  questions Question[]
+  candidate Candidate[]
+}
+
+model SkillLab {
+  id        Int        @id @default(autoincrement())
+  uuid      String     @unique @default(uuid())
+  tag       String     @unique
+  title     String     @unique
+  skill     Skill?     @relation(fields: [skillId], references: [id])
+  skillId   Int?
+  questions Question[]
+}
+
+model Question {
+  id          Int       @id @default(autoincrement())
+  uuid        String    @unique @default(uuid())
   description String
-  skills      Skill[] @relation("SkillToSkill")
-  skill       Skill?  @relation("SkillToSkill", fields: [skillId], references: [id])
+  answers     Answer[]
+  Skill       Skill?    @relation(fields: [skillId], references: [id])
   skillId     Int?
+  SkillLab    SkillLab? @relation(fields: [skillLabId], references: [id])
+  skillLabId  Int?
+}
+
+model Answer {
+  id          Int       @id @default(autoincrement())
+  uuid        String    @unique @default(uuid())
+  description String
+  isValid     Boolean   @default(false)
+  Question    Question? @relation(fields: [questionId], references: [id])
+  questionId  Int?
 }

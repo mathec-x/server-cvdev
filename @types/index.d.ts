@@ -3,10 +3,10 @@ import 'express'
 import 'jsonwebtoken'
 import { JwtPayload } from 'jsonwebtoken'
 
-type Names = 'user' | 'cadidates';
+type Names = 'user' | 'cadidates' | 'skills';
 type Types = `${Names}:mount` | `${Names}:merge` | `${Names}:create` | `${Names}:will:update` | `${Names}:update` | `${Names}:will:delete` | `${Names}:delete`;
 
-type DefaultEventsMap = "dispatch" | "refresh";
+type DefaultEventsMap = "dispatch" | "unsubscribe" | "subscribe" |  "refresh" | 'login' | 'logout';
 type SocketUserResponse = {
     id: string,
     user: User,
@@ -26,11 +26,11 @@ declare module 'socket.io' {
 
 declare module "jsonwebtoken" {
     interface JwtPayload {
-        id: number
-        uuid: string
-        isActive: boolean
-        groupId?: number
-        token?: string
+        uuid: string,
+        browser: string,
+        os: string,
+        platform: string,
+        ip: string 
     }
 }
 
@@ -39,6 +39,7 @@ declare module 'express' {
         toSubscribe(): Express.Response
         to(to: string | string[]): Express.Response
         dispatch(type: Types, payload: any): Express.Response
+        $emit(event: DefaultEventsMap, data: any): void
     }
     interface Request {
         socketId?: string

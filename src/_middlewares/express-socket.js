@@ -33,6 +33,10 @@ const writelog = (title, value) => {
       return res;
     };  
   
+    res.$emit = (event, data) => {
+      io.to(to).emit(event, data)
+    }
+
     res.dispatch = (type, payload) => {
       if (!to || req.query.noDispatch) {
         writelog('dispatch json data');
