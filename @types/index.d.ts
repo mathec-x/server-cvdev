@@ -3,7 +3,7 @@ import 'express'
 import 'jsonwebtoken'
 import { JwtPayload } from 'jsonwebtoken'
 
-type Names = 'user' | 'cadidates' | 'skills';
+type Names = 'user' | 'candidate' | 'cadidates' | 'skills';
 type Types = `${Names}:mount` | `${Names}:merge` | `${Names}:create` | `${Names}:will:update` | `${Names}:update` | `${Names}:will:delete` | `${Names}:delete`;
 
 type DefaultEventsMap = "dispatch" | "unsubscribe" | "subscribe" |  "refresh";
@@ -37,9 +37,8 @@ declare module "jsonwebtoken" {
 
 declare module 'express' {
     interface Response {
-        toSubscribe(): Express.Response
-        to(to: string | string[]): Express.Response
-        dispatch(type: Types, payload: any): Express.Response
+        to(to: string | string[]): Response
+        dispatch({type: Types, payload: any}): Response
         $emit(event: DefaultEventsMap, data: any): void
     }
     interface Request {
