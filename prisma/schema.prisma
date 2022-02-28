@@ -29,6 +29,8 @@ model Address {
   number       Int?        @default(0)
   cep          Int?        @default(0)
   Candidate    Candidate[]
+
+  @@unique([cep, number])
 }
 
 model Candidate {

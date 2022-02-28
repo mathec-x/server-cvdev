@@ -38,7 +38,7 @@ declare module "jsonwebtoken" {
 declare module 'express' {
     interface Response {
         to(to: string | string[]): Response
-        dispatch({type: Types, payload: any}): Response
+        dispatch(type: Types, payload: any): Response
         $emit(event: DefaultEventsMap, data: any): void
     }
     interface Request {
