@@ -33,6 +33,7 @@ const socketConnection = (socket) => {
             if(candidate){
                 console.log('subscribe to', nick);
                 socket.join(candidate.nick);
+                socket.emit('subscribe', candidate.nick)
                 socket.emit('dispatch', { type: 'candidate:mount', payload: candidate });
             }
         }).catch( () => {
@@ -42,6 +43,7 @@ const socketConnection = (socket) => {
 
     socket.on('unsubscribe', (nick) => {
         console.log('unsubscribe to', nick);
+        socket.emit('unsubscribe');
         socket.emit('dispatch', { type: 'candidate:mount', payload: {} });
         socket.leave(nick);
     })

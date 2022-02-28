@@ -21,6 +21,23 @@ exports.contacts = {
     }
 }
 
+exports.libs = {
+    select: {
+        uuid: true,
+        title: true,
+        tag: true
+    }
+}
+
+exports.skills = {
+    select: {
+        uuid: true,
+        title: true,
+        tag: true,
+        libs: this.libs
+    }
+}
+
 /** type { import('@prisma/client').Prisma.CandidateArgs } */
 exports.candidates = {
     select: {
@@ -30,7 +47,8 @@ exports.candidates = {
         nick: true,
         uuid: true,
         address: this.address,
-        contacts: this.contacts
+        contacts: this.contacts,
+        skills: this.skills
     }
 }
 
