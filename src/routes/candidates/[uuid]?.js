@@ -18,8 +18,8 @@ const { candidates } = require("../../../prisma/selectors");
             data: set
         });
 
-        res.to(data.nick).$emit('dispatch', { type: 'candidate:update', payload: data });
-        res.$emit('dispatch', { type: 'candidates:update', payload: data });
+        res.to(data.nick).$emit('dispatch', { type: 'candidate:mount', payload: data });
+        res.to(req.user.uuid).$emit('dispatch', { type: 'candidates:update', payload: data });
         return res.sendStatus(200);
 
     } catch (error) {

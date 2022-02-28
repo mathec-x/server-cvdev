@@ -27,13 +27,8 @@ const writelog = (title, value) => {
       return res;
     };
   
-    res.toSubscribe = () => {
-      writelog('socket.req.subscription', req.subscription)
-      to = 'subscribed::' + req.subscription;
-      return res;
-    };  
-  
     res.$emit = (event, data) => {
+      writelog(`${req.socketId} dispatch socket event to`, to);
       io.to(to).emit(event, data)
     }
 
