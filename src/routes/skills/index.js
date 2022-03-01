@@ -6,22 +6,11 @@ const md = require('../../../prisma/selectors');
  */
 exports.get = async (req, res) => {
     try {
-        const table = req.params.tag ? 'skillLab' : 'skill';
-        const where = {
-            tag: { contains: req.query.q.replace(/[^\w#&*]/g, '').toLocaleLowerCase() }
-        };
-
-        const select = { uuid: true, tag: true, title: true }
-
-        if (table === 'skill') {
-            select.libs = { select: { uuid: true, tag: true, title: true } };
-        } else {
-            where.skill = { uuid: req.params.tag };
-        }
-
         // @ts-ignore
-        const data = await db[table].findMany({
-            where,
+        const data = await db.skill.findMany({
+            where: {
+                tag: { contains: req.query.q.replace(/[^\w#&*]/g, '').toLocaleLowerCase() }
+            },
             select: { uuid: true, tag: true, title: true },
             take: 20
         })
