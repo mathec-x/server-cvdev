@@ -24,7 +24,7 @@ const md = require('../../../prisma/selectors');
     }
 }
 /**
- * @type { import("express-next-api").NextApi<{tag: string}, { title: string }> } 
+ * @type { import("express-next-api").NextApi<{tag: string}, { title: string, company: string }> } 
  */
 exports.post = async (req, res) => {
     try {
@@ -32,21 +32,27 @@ exports.post = async (req, res) => {
         const tag = req.body.title.replace(/[^\w#&*]/g, '').toLocaleLowerCase();
         const skill = req.params.tag ? req.params.tag.replace(/[^\w#&*]/g, '').toLocaleLowerCase() : '';
 
-        /** @type {import('@prisma/client').Prisma.CandidateUpdateArgs } */
-        const args = {
+        const data = await db.candidate.update({
             where: { nick: req.subscription },
             select: md.candidates.select,
             data: {
-                skills: {
+                jobs: {
                     update: {
-                        where: { tag: req.params.tag },
+                        where: { uuid: req.body.company },
                         data: {
-                            libs: {
-                                connectOrCreate: {
-                                    where: { tag: skill + tag },
-                                    create: {
-                                        title,
-                                        tag: skill + tag,
+                            skills: {
+                                update: {
+                                    where: { tag: req.params.tag },
+                                    data: {
+                                        libs: {
+                                            connectOrCreate: {
+                                                where: { tag: skill + tag },
+                                                create: {
+                                                    title,
+                                                    tag: skill + tag,
+                                                }
+                                            }
+                                        }
                                     }
                                 }
                             }
@@ -54,9 +60,8 @@ exports.post = async (req, res) => {
                     }
                 }
             }
-        }
+        });
 
-        const data = await db.candidate.update(args);
         return res.dispatch('candidate:mount', data);
 
     } catch (error) {
@@ -66,7 +71,7 @@ exports.post = async (req, res) => {
 }
 
 /**
- * @type { import("express-next-api").NextApi<{tag: string}, _, {lib?: string}> } 
+ * @type { import("express-next-api").NextApi<{tag: string}, {lib?: string, company: string},> } 
  */
 exports.delete = async (req, res) => {
     try {
@@ -74,18 +79,25 @@ exports.delete = async (req, res) => {
             where: { nick: req.subscription },
             select: md.candidates.select,
             data: {
-                skills: !req.query.lib
-                    ? { disconnect: { tag: req.params.tag } }
-                    : {
-                        update: {
-                            where: { tag: req.params.tag },
-                            data: {
-                                libs: {
-                                    disconnect: { tag: req.query.lib }
+                jobs: {
+                    update: {
+                        where: { uuid: req.body.company },
+                        data: {
+                            skills: !req.query.lib
+                            ? { disconnect: { tag: req.params.tag } }
+                            : {
+                                update: {
+                                    where: { tag: req.params.tag },
+                                    data: {
+                                        libs: {
+                                            disconnect: { tag: req.query.lib }
+                                        }
+                                    }
                                 }
                             }
                         }
                     }
+                }
             }
         });
         return res.dispatch('candidate:mount', data);

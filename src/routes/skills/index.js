@@ -22,22 +22,27 @@ exports.get = async (req, res) => {
 }
 
 /**
- * @type { import("express-next-api").NextApi<_, { title: string }> } 
+ * @type { import("express-next-api").NextApi<_, { title: string, company: string }> } 
  */
 exports.post = async (req, res) => {
     try {
         const title = req.body.title.Capitalize();
         const tag = req.body.title.replace(/[^\w#&*]/g, '').toLocaleLowerCase();
 
-        /** @type {import('@prisma/client').Prisma.CandidateUpdateArgs } */
-        const args = {
+        const data = await db.candidate.update({
             where: { nick: req.subscription },
             select: md.candidates.select,
             data: {
-                skills: { connectOrCreate: { where: { tag }, create: { title, tag }}}
+                jobs:{
+                    update: {
+                        where: { uuid: req.body.company },
+                        data: {
+                            skills: { connectOrCreate: { where: { tag }, create: { title, tag }}}
+                        }
+                    }
+                }
             }
-        }
-        const data = await db.candidate.update(args);
+        });
         return res.dispatch('candidate:mount', data);
 
     } catch (error) {
