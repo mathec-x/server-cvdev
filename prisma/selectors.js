@@ -1,5 +1,9 @@
-/** type { import('@prisma/client').Prisma.AddressArgs } */
-exports.address = {
+
+/**
+ * @typedef {import('@prisma/client').Prisma} Prisma
+ */
+
+exports.address = /** @type { Prisma.AddressArgs } */ {
     select: {
         cep: true,
         city: true,
@@ -11,9 +15,7 @@ exports.address = {
         uuid: true
     }
 }
-
-/** type { import('@prisma/client').Prisma.ContactArgs } */
-exports.contacts = {
+exports.contacts = /** @type { Prisma.ContactArgs } */ {
     select: {
         uuid: true,
         name: true,
@@ -28,8 +30,7 @@ exports.libs = {
         tag: true
     }
 }
-
-exports.skills = {
+exports.skills = /** @type { Prisma.SkillArgs } */ {
     select: {
         uuid: true,
         title: true,
@@ -37,9 +38,7 @@ exports.skills = {
         libs: this.libs
     }
 }
-
-/** type { import('@prisma/client').Prisma.CandidateArgs } */
-exports.candidates = {
+exports.candidates = /** @type { Prisma.CandidateArgs } */ {
     select: {
         email: true,
         image: true,
@@ -48,12 +47,22 @@ exports.candidates = {
         uuid: true,
         address: this.address,
         contacts: this.contacts,
+        jobs: this.jobs
+    }
+}
+exports.jobs = /** @type { Prisma.JobArgs } */ {
+    select: {
+        uuid: true,
+        occupation: true,
+        begin: true,
+        finish: true,
+        description: true,
+        company: true,
         skills: this.skills
     }
 }
 
-/** type { import('@prisma/client').Prisma.UserArgs } */
-exports.user = {
+exports.user = /** @type { Prisma.UserArgs }*/ {
     select: {
         email: true,
         uuid: true,
