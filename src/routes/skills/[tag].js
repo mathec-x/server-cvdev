@@ -56,7 +56,6 @@ exports.post = async (req, res) => {
             }
         }
 
-        console.log(args.data.skills);
         const data = await db.candidate.update(args);
         return res.dispatch('candidate:mount', data);
 
@@ -70,7 +69,6 @@ exports.post = async (req, res) => {
  * @type { import("express-next-api").NextApi<{tag: string}, _, {lib?: string}> } 
  */
 exports.delete = async (req, res) => {
-    console.log(req.subscription, req.params.tag, req.query.lib);
     try {
         const data = await db.candidate.update({
             where: { nick: req.subscription },

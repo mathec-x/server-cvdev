@@ -8,12 +8,10 @@ exports.get = async (req, res) => {
     try {
         // @ts-ignore
         const data = await db.skill.findMany({
-            where: {
-                tag: { contains: req.query.q.replace(/[^\w#&*]/g, '').toLocaleLowerCase() }
-            },
+            where: { tag: { contains: req.query.q.replace(/[^\w#&*]/g, '').toLocaleLowerCase() }},
             select: { uuid: true, tag: true, title: true },
             take: 20
-        })
+        });
 
         res.json(data);
 
@@ -36,14 +34,9 @@ exports.post = async (req, res) => {
             where: { nick: req.subscription },
             select: md.candidates.select,
             data: {
-                skills: {
-                    connectOrCreate: {
-                        where: { tag }, create: { title, tag }
-                    }
-                }
+                skills: { connectOrCreate: { where: { tag }, create: { title, tag }}}
             }
         }
-        console.log(args.data.skills);
         const data = await db.candidate.update(args);
         return res.dispatch('candidate:mount', data);
 
