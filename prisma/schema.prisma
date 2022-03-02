@@ -29,6 +29,7 @@ model Address {
   number       Int?        @default(0)
   cep          Int?        @default(0)
   Candidate    Candidate[]
+  Job          Job[]
 
   @@unique([cep, number])
 }
@@ -43,10 +44,25 @@ model Candidate {
 
   user      User?     @relation(fields: [userId], references: [id])
   userId    Int?
-  address   Address?   @relation(fields: [addressId], references: [id])
+  address   Address?  @relation(fields: [addressId], references: [id])
   addressId Int?
   contacts  Contact[]
-  skills    Skill[]
+  jobs      Job[]
+}
+
+model Job {
+  id          Int        @id @default(autoincrement())
+  uuid        String     @unique @default(uuid())
+  company     String?
+  occupation  String?
+  description String?
+  begin       DateTime
+  finish      DateTime?
+  Address     Address?   @relation(fields: [addressId], references: [id])
+  addressId   Int?
+  Candidate   Candidate? @relation(fields: [candidateId], references: [id])
+  candidateId Int?
+  skills      Skill[]
 }
 
 model Contact {
@@ -59,34 +75,37 @@ model Contact {
 }
 
 model Skill {
-  id        Int         @id @default(autoincrement())
-  uuid      String      @unique @default(uuid())
-  tag       String      @unique
-  title     String      @unique
-  libs      SkillLab[]
-  questions Question[]
-  candidate Candidate[]
-}
-
-model SkillLab {
   id        Int        @id @default(autoincrement())
   uuid      String     @unique @default(uuid())
   tag       String     @unique
   title     String     @unique
-  skill     Skill?     @relation(fields: [skillId], references: [id])
-  skillId   Int?
   questions Question[]
+  job       Job?       @relation(fields: [jobId], references: [id])
+  jobId     Int?
+  Skill     Skill?     @relation("SkillToSkill", fields: [skillId], references: [id])
+  skillId   Int?
+  libs      Skill[]    @relation("SkillToSkill")
 }
 
+// model SkillLab {
+//   id        Int        @id @default(autoincrement())
+//   uuid      String     @unique @default(uuid())
+//   tag       String     @unique
+//   title     String     @unique
+//   skill     Skill?     @relation(fields: [skillId], references: [id])
+//   skillId   Int?
+//   job       Job?       @relation(fields: [jobId], references: [id])
+//   jobId     Int?
+//   questions Question[]
+// }
+
 model Question {
-  id          Int       @id @default(autoincrement())
-  uuid        String    @unique @default(uuid())
+  id          Int      @id @default(autoincrement())
+  uuid        String   @unique @default(uuid())
   description String
   answers     Answer[]
-  Skill       Skill?    @relation(fields: [skillId], references: [id])
+  Skill       Skill?   @relation(fields: [skillId], references: [id])
   skillId     Int?
-  SkillLab    SkillLab? @relation(fields: [skillLabId], references: [id])
-  skillLabId  Int?
 }
 
 model Answer {
