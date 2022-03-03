@@ -29,21 +29,15 @@ exports.post = async (req, res) => {
         const title = req.body.title.Capitalize();
         const tag = req.body.title.replace(/[^\w#&*]/g, '').toLocaleLowerCase();
 
-        const data = await db.candidate.update({
-            where: { nick: req.subscription },
-            select: md.candidates.select,
+        const data = await db.job.update({
+            where: { uuid: req.body.company },
             data: {
-                jobs: {
-                    update: {
-                        where: { uuid: req.body.company },
-                        data: {
-                            skills: { connectOrCreate: { where: { tag }, create: { title, tag } } }
-                        }
-                    }
-                }
+                skills: { connectOrCreate: { where: { tag }, create: { title, tag } } }
             }
         });
-        return res.to(req.subscription).dispatch('candidate:mount', data);
+
+        const candidate = await db.candidate.findUnique({where: { nick: req.subscription }, ...md.candidate })
+        return res.to(req.subscription).dispatch('candidate:mount', candidate);
 
     } catch (error) {
         console.log(error);
@@ -56,27 +50,20 @@ exports.post = async (req, res) => {
  */
 exports.delete = async (req, res) => {
     try {
-
-        const data = await db.candidate.update({
-            where: { nick: req.subscription },
-            select: md.candidates.select,
+        console.log(req.body);
+        const data = await db.job.update({
+            where: { uuid: req.body.company },
             data: {
-                jobs: {
-                    update: {
-                        where: { uuid: req.body.company },
-                        data: {
-                            skills: {
-                                disconnect: {
-                                    tag: req.body.tag 
-                                }
-                            }                            
-                        }
+                skills: {
+                    disconnect: {
+                        tag: req.body.tag
                     }
                 }
             }
         });
-
-        return res.to(req.subscription).dispatch('candidate:mount', data);
+        
+        const candidate = await db.candidate.findUnique({where: { nick: req.subscription }, ...md.candidate })
+        return res.to(req.subscription).dispatch('candidate:mount', candidate);
 
     } catch (error) {
         console.log(error);

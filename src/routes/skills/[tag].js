@@ -34,7 +34,7 @@ exports.post = async (req, res) => {
 
         const data = await db.candidate.update({
             where: { nick: req.subscription },
-            select: md.candidates.select,
+            select: md.candidate.select,
             data: {
                 jobs: {
                     update: {
@@ -77,7 +77,7 @@ exports.delete = async (req, res) => {
     try {
         const data = await db.candidate.update({
             where: { nick: req.subscription },
-            select: md.candidates.select,
+            select: md.candidate.select,
             data: {
                 jobs: {
                     update: {

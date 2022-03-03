@@ -80,11 +80,10 @@ model Skill {
   tag       String     @unique
   title     String     @unique
   questions Question[]
-  job       Job?       @relation(fields: [jobId], references: [id])
-  jobId     Int?
   Skill     Skill?     @relation("SkillToSkill", fields: [skillId], references: [id])
   skillId   Int?
   libs      Skill[]    @relation("SkillToSkill")
+  jobs      Job[]
 }
 
 // model SkillLab {
