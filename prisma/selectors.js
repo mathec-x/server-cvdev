@@ -38,6 +38,19 @@ exports.skills = /** @type { Prisma.SkillArgs } */ {
         libs: this.libs
     }
 }
+
+exports.jobs = /** @type { Prisma.JobArgs } */ {
+    select: {
+        uuid: true,
+        occupation: true,
+        begin: true,
+        finish: true,
+        description: true,
+        company: true,
+        skills: this.skills
+    }
+}
+
 exports.candidates = /** @type { Prisma.CandidateArgs } */ {
     select: {
         email: true,
@@ -50,17 +63,7 @@ exports.candidates = /** @type { Prisma.CandidateArgs } */ {
         jobs: this.jobs
     }
 }
-exports.jobs = /** @type { Prisma.JobArgs } */ {
-    select: {
-        uuid: true,
-        occupation: true,
-        begin: true,
-        finish: true,
-        description: true,
-        company: true,
-        skills: this.skills
-    }
-}
+
 
 exports.user = /** @type { Prisma.UserArgs }*/ {
     select: {

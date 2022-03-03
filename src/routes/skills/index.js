@@ -8,7 +8,7 @@ exports.get = async (req, res) => {
     try {
         // @ts-ignore
         const data = await db.skill.findMany({
-            where: { tag: { contains: req.query.q.replace(/[^\w#&*]/g, '').toLocaleLowerCase() }},
+            where: { tag: { contains: req.query.q.replace(/[^\w#&*]/g, '').toLocaleLowerCase() } },
             select: { uuid: true, tag: true, title: true },
             take: 20
         });
@@ -33,17 +33,50 @@ exports.post = async (req, res) => {
             where: { nick: req.subscription },
             select: md.candidates.select,
             data: {
-                jobs:{
+                jobs: {
                     update: {
                         where: { uuid: req.body.company },
                         data: {
-                            skills: { connectOrCreate: { where: { tag }, create: { title, tag }}}
+                            skills: { connectOrCreate: { where: { tag }, create: { title, tag } } }
                         }
                     }
                 }
             }
         });
-        return res.dispatch('candidate:mount', data);
+        return res.to(req.subscription).dispatch('candidate:mount', data);
+
+    } catch (error) {
+        console.log(error);
+        res.sendStatus(400);
+    }
+}
+
+/**
+ * @type { import("express-next-api").NextApi<_, { tag: string, company: string }> } 
+ */
+exports.delete = async (req, res) => {
+    try {
+
+        const data = await db.candidate.update({
+            where: { nick: req.subscription },
+            select: md.candidates.select,
+            data: {
+                jobs: {
+                    update: {
+                        where: { uuid: req.body.company },
+                        data: {
+                            skills: {
+                                disconnect: {
+                                    tag: req.body.tag 
+                                }
+                            }                            
+                        }
+                    }
+                }
+            }
+        });
+
+        return res.to(req.subscription).dispatch('candidate:mount', data);
 
     } catch (error) {
         console.log(error);
