@@ -24,7 +24,7 @@ exports.put = async (req, res) => {
                 }
             }
         });
-        return res.dispatch('candidate:mount', data);
+        return res.to(req.subscription).dispatch('candidate:mount', data);
 
     } catch (error) {
         console.log(error);
@@ -43,7 +43,7 @@ exports.delete = async (req, res) => {
             select: md.candidates.select,
             data: { jobs: { delete: { uuid: req.params.uuid } } }
         });
-        return res.dispatch('candidate:mount', data);
+        return res.to(req.subscription).dispatch('candidate:mount', data);
 
     } catch (error) {
         console.log(error);

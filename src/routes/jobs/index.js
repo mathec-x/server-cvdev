@@ -24,7 +24,7 @@ exports.post = async (req, res) => {
             }}}
         });
 
-        return res.dispatch('candidate:mount', data);
+        return res.to(req.subscription).dispatch('candidate:mount', data);
 
     } catch (error) {
         console.log(error);
