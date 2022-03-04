@@ -48,6 +48,7 @@ model Candidate {
   addressId Int?
   contacts  Contact[]
   jobs      Job[]
+  libs      Lib[]
 }
 
 model Job {
@@ -80,23 +81,19 @@ model Skill {
   tag       String     @unique
   title     String     @unique
   questions Question[]
-  Skill     Skill?     @relation("SkillToSkill", fields: [skillId], references: [id])
-  skillId   Int?
-  libs      Skill[]    @relation("SkillToSkill")
+  libs      Lib[]
   jobs      Job[]
 }
 
-// model SkillLab {
-//   id        Int        @id @default(autoincrement())
-//   uuid      String     @unique @default(uuid())
-//   tag       String     @unique
-//   title     String     @unique
-//   skill     Skill?     @relation(fields: [skillId], references: [id])
-//   skillId   Int?
-//   job       Job?       @relation(fields: [jobId], references: [id])
-//   jobId     Int?
-//   questions Question[]
-// }
+model Lib {
+  id         Int         @id @default(autoincrement())
+  uuid       String      @unique @default(uuid())
+  tag        String      @unique
+  title      String      @unique
+  candidates Candidate[]
+  Skill      Skill?      @relation(fields: [skillId], references: [id])
+  skillId    Int?
+}
 
 model Question {
   id          Int      @id @default(autoincrement())

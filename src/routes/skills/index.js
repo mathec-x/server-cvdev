@@ -29,7 +29,7 @@ exports.post = async (req, res) => {
         const title = req.body.title.Capitalize();
         const tag = req.body.title.replace(/[^\w#&*]/g, '').toLocaleLowerCase();
 
-        const data = await db.job.update({
+        await db.job.update({
             where: { uuid: req.body.company },
             data: {
                 skills: { connectOrCreate: { where: { tag }, create: { title, tag } } }
@@ -50,8 +50,7 @@ exports.post = async (req, res) => {
  */
 exports.delete = async (req, res) => {
     try {
-        console.log(req.body);
-        const data = await db.job.update({
+        await db.job.update({
             where: { uuid: req.body.company },
             data: {
                 skills: {

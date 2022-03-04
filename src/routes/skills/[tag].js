@@ -4,13 +4,18 @@ const md = require('../../../prisma/selectors');
 /**
  * @type { import("express-next-api").NextApi<{tag?: string}, {}, {q: string}> } 
  */
- exports.get = async (req, res) => {
+exports.get = async (req, res) => {
     try {
-        // @ts-ignore
-        const data = await db.skillLab.findMany({
+        const skill = req.params.tag ? req.params.tag.replace(/[^\w#&*]/g, '').toLocaleLowerCase() : '';
+
+        const data = await db.lib.findMany({
             where: {
-                tag: { contains: req.query.q.replace(/[^\w#&*]/g, '').toLocaleLowerCase() },
-                skill: { tag: req.params.tag }
+                Skill: {
+                    tag: skill
+                },
+                tag: {
+                    contains: req.query.q
+                }
             },
             select: { uuid: true, tag: true, title: true },
             take: 20
@@ -24,7 +29,7 @@ const md = require('../../../prisma/selectors');
     }
 }
 /**
- * @type { import("express-next-api").NextApi<{tag: string}, { title: string, company: string }> } 
+ * @type { import("express-next-api").NextApi<{tag: string}, { title: string }> } 
  */
 exports.post = async (req, res) => {
     try {
@@ -32,37 +37,32 @@ exports.post = async (req, res) => {
         const tag = req.body.title.replace(/[^\w#&*]/g, '').toLocaleLowerCase();
         const skill = req.params.tag ? req.params.tag.replace(/[^\w#&*]/g, '').toLocaleLowerCase() : '';
 
-        const data = await db.candidate.update({
-            where: { nick: req.subscription },
-            select: md.candidate.select,
-            data: {
-                jobs: {
-                    update: {
-                        where: { uuid: req.body.company },
-                        data: {
-                            skills: {
-                                update: {
-                                    where: { tag: req.params.tag },
-                                    data: {
-                                        libs: {
-                                            connectOrCreate: {
-                                                where: { tag: skill + tag },
-                                                create: {
-                                                    title,
-                                                    tag: skill + tag,
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
+        console.log(req.user.uuid, skill+tag , tag, )
+
+        await db.lib.upsert({
+            where: { tag: skill + tag },
+            update: {
+                Skill: { connect: { tag: skill }},
+                candidates: {
+                    connect: { nick: req.subscription }
+                }
+            },
+            create: {
+                title,
+                tag: skill + tag,
+                Skill: { connect: { tag: skill }},
+                candidates: {
+                    connect: { nick: req.subscription }
                 }
             }
         });
 
-        return res.dispatch('candidate:mount', data);
+        const candidate = await db.candidate.findFirst({
+            where: { nick: req.subscription },
+            ...md.candidate
+        });
+
+        return res.dispatch('candidate:mount', candidate);
 
     } catch (error) {
         console.log(error);
@@ -71,31 +71,18 @@ exports.post = async (req, res) => {
 }
 
 /**
- * @type { import("express-next-api").NextApi<{tag: string}, {lib?: string, company: string},> } 
+ * @type { import("express-next-api").NextApi<{tag: string}, {tag: string}> } 
  */
 exports.delete = async (req, res) => {
     try {
+        console.log(req.subscription, req.params.tag, req.body.tag);
         const data = await db.candidate.update({
             where: { nick: req.subscription },
             select: md.candidate.select,
             data: {
-                jobs: {
-                    update: {
-                        where: { uuid: req.body.company },
-                        data: {
-                            skills: !req.query.lib
-                            ? { disconnect: { tag: req.params.tag } }
-                            : {
-                                update: {
-                                    where: { tag: req.params.tag },
-                                    data: {
-                                        libs: {
-                                            disconnect: { tag: req.query.lib }
-                                        }
-                                    }
-                                }
-                            }
-                        }
+                libs: {
+                    disconnect: {
+                        tag: req.body.tag
                     }
                 }
             }

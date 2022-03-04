@@ -23,7 +23,7 @@ exports.contacts = /** @type { Prisma.ContactArgs } */ {
     }
 }
 
-exports.libs = {
+exports.libs = /** @type { Prisma.LibArgs } */  {
     select: {
         uuid: true,
         title: true,
@@ -34,8 +34,7 @@ exports.skills = /** @type { Prisma.SkillArgs } */ {
     select: {
         uuid: true,
         title: true,
-        tag: true,
-        libs: this.libs
+        tag: true
     }
 }
 
@@ -75,7 +74,8 @@ exports.candidate = /** @type { Prisma.CandidateArgs } */ {
         uuid: true,
         address: this.address,
         contacts: this.contacts,
-        jobs: this.jobs
+        jobs: this.jobs,
+        libs: this.libs
     }
 }
 
