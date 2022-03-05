@@ -57,6 +57,7 @@ exports.candidates = /** @type { Prisma.CandidateArgs } */ {
         name: true,
         nick: true,
         uuid: true,
+        about: true,
         jobs: {
             select: {
                 skills: true
@@ -72,6 +73,7 @@ exports.candidate = /** @type { Prisma.CandidateArgs } */ {
         name: true,
         nick: true,
         uuid: true,
+        about: true,
         address: this.address,
         contacts: this.contacts,
         jobs: this.jobs,

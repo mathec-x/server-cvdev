@@ -1,5 +1,5 @@
 const db = require("../../../prisma");
-const { candidates } = require("../../../prisma/selectors");
+const md = require("../../../prisma/selectors");
 const { validateBody } = require("./_helpers");
 
 /**
@@ -8,7 +8,7 @@ const { validateBody } = require("./_helpers");
  exports.put = async (req, res) => {
     try {
         const data = await db.candidate.update({
-            select: candidates.select,
+            select: md.candidate.select,
             where: { uuid: req.params.uuid },
             data: validateBody(req.body)
         });

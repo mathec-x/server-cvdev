@@ -41,6 +41,7 @@ model Candidate {
   email String
   name  String
   image String
+  about String?
 
   user      User?     @relation(fields: [userId], references: [id])
   userId    Int?
