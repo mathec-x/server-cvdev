@@ -16,13 +16,13 @@ exports.put = async (req, res) => {
          * - null is a value
          * - undefined means do nothing
          */
-        if (typeof finish !== undefined && finish.toString() === '') {
+        if (typeof finish !== undefined && finish?.toString() === '') {
             finish = null;
         } else {
             finish = asDate(finish);
         }
 
-        console.log({ begin, finish, company, description, occupation });
+        // console.log({ begin, finish, company, description, occupation });
         const data = await db.candidate.update({
             where: { nick: req.subscription },
             select: md.candidate.select,
