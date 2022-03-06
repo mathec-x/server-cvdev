@@ -7,20 +7,31 @@ const { asDate } = require('../../prototypes');
 exports.put = async (req, res) => {
     try {
 
-        let { begin, finish, company, description, occupation  } = req.body;
+        let { begin, finish, company, description, occupation } = req.body;
 
         begin = asDate(begin);
-        finish = asDate(finish);
 
+        /**
+         * Prisma Client differentiates between null and undefined:
+         * - null is a value
+         * - undefined means do nothing
+         */
+        if (typeof finish !== undefined && finish.toString() === '') {
+            finish = null;
+        } else {
+            finish = asDate(finish);
+        }
+
+        console.log({ begin, finish, company, description, occupation });
         const data = await db.candidate.update({
             where: { nick: req.subscription },
             select: md.candidate.select,
             data: {
-                jobs: { 
-                    update: { 
+                jobs: {
+                    update: {
                         where: { uuid: req.params.uuid },
-                        data: { begin, finish, company, description, occupation}
-                    } 
+                        data: { begin, finish, company, description, occupation }
+                    }
                 }
             }
         });
