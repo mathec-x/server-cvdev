@@ -22,12 +22,12 @@ const OpenStreetMap = NodeGeocoder({
 
 const BingStreetMap = NodeGeocoder({
     provider: 'virtualearth',
-    apiKey: process.env.BING_API_KEY // Bing
+    apiKey: process.env.BING_API_KEY // get one in https://www.bingmapsportal.com/Application
 });
 
 /**
  * @param {string} string
- * @returns {NodeGeocoder.Entry[]}
+ * @returns {Promise<NodeGeocoder.Entry[]>}
  */
 exports.geocode = async (string) => {
     let data = [];
@@ -61,11 +61,15 @@ exports.geocode = async (string) => {
     return data;
 }
 
-/**@return {NodeGeocoder.Entry[]}  */
-exports.reverse = async ({ lat, lon }) => {
-
+/**
+ * @param {string} latlon
+ * @return {Promise<NodeGeocoder.Entry[]>}  
+ */
+exports.reverse = async (latlon) => {
+    const [lat, lon] = latlon.split(',');
+    
     try {
-        return await OpenStreetMap.reverse({ lat, lon });
+        return await OpenStreetMap.reverse({ lat: Number(lat), lon: Number(lon) });
     }
     catch (error) {
         console.log('[catch reverse OpenStreetMap]', error);
@@ -73,7 +77,7 @@ exports.reverse = async ({ lat, lon }) => {
 
     if(process.env.BING_API_KEY){
         try {
-            return await Bing.reverse({ lat, lon });
+            return await BingStreetMap.reverse({ lat: Number(lat), lon: Number(lon) });
         }
         catch (error) {
             console.log('[catch reverse Bing]', error);
