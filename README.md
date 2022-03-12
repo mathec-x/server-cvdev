@@ -152,7 +152,7 @@ app.listen(PORT, () => {
 
 - to use it you must install the client and the engine
  ```bash
-npm install -D prisma
+npm install prisma --save-dev
 npm install @prisma/client 
  ```
 
