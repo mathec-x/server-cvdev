@@ -138,6 +138,8 @@ app.listen(PORT, () => {
     console.log('running server at http://localhost:' + PORT);
 });
 ```
+ - note: In Node. js, process.env <b>is a global variable that is injected during runtime</b>. It is a view of the state of the system environment variables. When we set an environment variable, it is loaded into process. [see this link for more information](https://www.section.io/engineering-education/nodejs-environment-variables/#:~:text=js-,In%20Node.,it%20is%20loaded%20into%20process.)
+
  - if the server is started, you can access the url localhost:3001 through chrome, try to access
 
  #
