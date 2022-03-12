@@ -91,8 +91,7 @@ sudo npm i express
 ```
 
 ### 7) modify the <code>package.json</code> file
- - change the project name to server-cvdev 
- - add a database + server init script
+ - change the project name to <i>server-cvdev</i> and add a database + server init <i>script</i>
 
 ```json
 {
