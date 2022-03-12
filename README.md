@@ -93,14 +93,15 @@ sudo npm i express
 ### 7) modify the <code>package.json</code> file
  - change the project name to <i>server-cvdev</i> and add a database + server init <i>script</i>
 
-```json
+<pre>
 {
-  "name": "server-cvdev",
+  <b>"name": "server-cvdev",</b>
   "version": "1.0.0",
   "description": "",
   "main": "scr/server.js",
   "scripts": {
-    "start": "docker-compose up & nodemon ./src/server",
+    "test": "echo \"Error: no test specified\" && exit 1,
+    <b>"start": "docker-compose up & nodemon ./src/server"</b>
   },
   "author": "",
   "license": "ISC",
@@ -108,7 +109,7 @@ sudo npm i express
     "express": "^4.17.3",
   }
 }
-```
+</pre>
 
 - write <code>console.log('it works') </code> inside server.js
 - then type in terminal <code>npm run start</code>, It worked?
