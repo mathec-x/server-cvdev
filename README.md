@@ -95,13 +95,13 @@ sudo npm i express
 
 <pre>
 {
-  <b style="background-color: yellow; color: black">"name": "server-cvdev",</b>
+  <b style="background-color: yellow!important; color: black!important">"name": "server-cvdev",</b>
   "version": "1.0.0",
   "description": "",
   "main": "scr/server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    <b style="background-color: yellow; color: black">"start": "docker-compose up & nodemon ./src/server"</b>
+    <b style="background-color: yellow!important; color: black!important">"start": "docker-compose up & nodemon ./src/server"</b>
   },
   "author": "",
   "license": "ISC",
