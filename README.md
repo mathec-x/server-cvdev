@@ -146,6 +146,8 @@ app.listen(PORT, () => {
  ## Prisma
 
  - Prisma is a database orm, to use it you must install the client and the engine
+ - open the terminal in the <b>server</b> folder (this is the project root).
+ <i>whenever you run the package installation script, the terminal must be in root</i>
 
  ```bash
 npm install @prisma/client
