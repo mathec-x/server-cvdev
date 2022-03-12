@@ -146,11 +146,11 @@ app.listen(PORT, () => {
  ## Prisma
 
 - Prisma is an open-source [ORM](https://www.devmedia.com.br/orm-object-relational-mapper/19056) for Node. js and TypeScript. It is used as an alternative to writing plain SQL, or using another database access tool such as SQL query builders (like knex. js) or ORMs (like TypeORM and Sequelize). Prisma currently supports PostgreSQL, MySQL, SQL Server, SQLite and MongoDB (preview). [see this link for more information](https://docs.nestjs.com/recipes/prisma#:~:text=Prisma%20is%20an%20open%2Dsource,SQLite%20and%20MongoDB%20(preview).)
-to use it you must install the client and the engine
 
  - open the terminal in the <b>server</b> folder (this is the project root).
  <i>whenever you run the package installation script, the terminal must be in root</i>
 
+- to use it you must install the client and the engine
  ```bash
 npm install @prisma/client
 npm install -D prisma
