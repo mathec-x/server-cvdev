@@ -77,15 +77,15 @@ stop the process by pressing <code>ctrl + C</code>
 sudo npm i -g nodemon
 ```
 
-### 5) Install nodemon globally to run the server
-
-```bash
-sudo npm i -g nodemon
-```
-
-### 6) open the project in visual studio code (vscode), install it if you don't have it
+### 5) open the project in visual studio code (vscode), install it if you don't have it
+- open the editor with this command 
 ```bash
 code .
+```
+
+### 6) install the first project dependency
+```bash
+sudo npm i express
 ```
 
 ### 7) modify the <code>package.json</code> file
