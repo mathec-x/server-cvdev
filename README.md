@@ -83,9 +83,9 @@ sudo npm i -g nodemon
 sudo npm i -g nodemon
 ```
 
-### 6) install the first project dependency
+### 6) open the project in visual studio code (vscode), install it if you don't have it
 ```bash
-sudo npm i express
+code .
 ```
 
 ### 7) modify the <code>package.json</code> file
