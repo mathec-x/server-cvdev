@@ -145,7 +145,9 @@ app.listen(PORT, () => {
  #
  ## Prisma
 
- - Prisma is a database [orm](https://www.devmedia.com.br/orm-object-relational-mapper/19056), to use it you must install the client and the engine
+- Prisma is an open-source [ORM](https://www.devmedia.com.br/orm-object-relational-mapper/19056) for Node. js and TypeScript. It is used as an alternative to writing plain SQL, or using another database access tool such as SQL query builders (like knex. js) or ORMs (like TypeORM and Sequelize). Prisma currently supports PostgreSQL, MySQL, SQL Server, SQLite and MongoDB (preview).
+to use it you must install the client and the engine
+
  - open the terminal in the <b>server</b> folder (this is the project root).
  <i>whenever you run the package installation script, the terminal must be in root</i>
 
