@@ -110,7 +110,7 @@ sudo npm i express
 ```
 
 - write <code>console.log('it works') </code> inside server.js
-- then type in terminal <code>npm start</code>, It worked?
+- then type in terminal <code>npm run start</code>, It worked?
 
 ### 8) create an app.js file next to server.js
 
