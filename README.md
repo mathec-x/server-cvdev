@@ -100,7 +100,7 @@ sudo npm i express
   "description": "",
   "main": "scr/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1,
+    "test": "echo \"Error: no test specified\" && exit 1",
     <b>"start": "docker-compose up & nodemon ./src/server"</b>
   },
   "author": "",
