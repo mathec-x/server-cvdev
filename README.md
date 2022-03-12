@@ -150,11 +150,14 @@ app.listen(PORT, () => {
  - open the terminal in the <b>server</b> folder (this is the project root).
  <i>whenever you run the package installation script, the terminal must be in root</i>
 
-- to use it you must install the client and the engine
+- to use this, you must install the prism engine as devDependecies by adding the <b>--save-dev</b> tag
  ```bash
 npm install prisma --save-dev
-npm install @prisma/client 
  ```
+- then install the prisma client
+```bash
+npm install @prisma/client 
+```
 
  - and then start the client
 
