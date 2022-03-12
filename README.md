@@ -71,6 +71,8 @@ you should see a message like this
 
 stop the process by pressing <code>ctrl + C</code>
 
+- [if you see an error, permission denied, try this link](https://stackoverflow.com/questions/48957195/how-to-fix-docker-got-permission-denied-issue)
+
 ### 4) Install nodemon globally to run the server
 
 ```bash
