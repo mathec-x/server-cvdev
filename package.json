@@ -8,11 +8,12 @@
     "start": "node ./src/server.js",
     "db:up": "docker-compose up",
     "db:down": "docker-compose down",
-    "db:init": "npx prisma init",
-    "db:studio": "npx prisma studio",
-    "prepare": "npx prisma generate",
-    "db:pull": "npx prisma db pull && npx prisma generate",
-    "db:push": "npx prisma db push && npx prisma generate"
+    "db:init": "prisma init",
+    "db:studio": "prisma studio",
+    "db:generate": "prisma generate",
+    "db:pull": "prisma db pull && prisma generate",
+    "db:push": "prisma db push && prisma generate",
+    "prepare": "prisma db push && prisma generate"
   },
   "keywords": [],
   "author": "",
