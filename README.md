@@ -287,6 +287,22 @@ module.exports = { app };
 <b style="color: green; font-size: 9px">~/Projects/cvdev/server</b> touch routes/users/index.js
 </pre>
 
+- now the structure should look like this
+
+<pre>
+── ~/Projects
+    └── cvdev
+        └── server
+            ├── src
+                <b>├── routes
+                    └── users
+                        └── index.js</b>
+                ├── app.js
+                └── server.js
+            ├── docker-compose.yml
+            └── package.json
+</pre>
+
 - inside this file import a router from express on the first line
 
 ```js
