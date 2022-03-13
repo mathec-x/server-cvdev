@@ -48,7 +48,7 @@ services:
     environment:
       POSTGRES_DB: "cvdev"
       POSTGRES_HOST_AUTH_METHOD: "trust"
-      POSTGRES_USER: "postgres"
+      POSTGRES_USER: "user"
       POSTGRES_PASSWORD: "qwerty123"
     ports:
       - "5432:5432"
@@ -169,7 +169,7 @@ npx prisma init
 - a new file called <b>.env</b> appeared, change the password and user of this file in DATABASE_URL to the same ones that are in dockercompose
 
 ```bash
-DATABASE_URL="postgresql://postgres:qwerty123@localhost:5432/cvdev"
+DATABASE_URL="postgresql://user:qwerty123@localhost:5432/cvdev"
 ```
 
 - a new directory called <b>prisma</b> appeared
