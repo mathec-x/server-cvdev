@@ -248,3 +248,16 @@ npx prisma studio
 
 ```
 
+#
+## TEST API'S IN VSCODE WITH [THUNDER CLIENT](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client)
+
+![](https://raw.githubusercontent.com/rangav/thunder-client-support/master/images/thunder-client.gif)
+
+- go to vs code extensions tab and locate the extension
+
+![](./assets/1-thunder.png)
+
+
+- click <b>new request</b> and add a <b>GET</b> call to the url
+
+![](./assets/2-thunder.png)
