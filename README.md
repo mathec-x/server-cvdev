@@ -2,10 +2,10 @@
 
 - faq: how to build this app
 
-- [Begin](#Begin)
-- [Prisma](#Prisma)
-- [Restfull client](#Restfull)
-- [Express Routes](#Routes)
+- [Begin](#begin)
+- [Prisma](#prisma)
+- [Restfull client](#restfull-client)
+- [Express Routes](#express-routes)
 
 # Begin
 
@@ -270,7 +270,8 @@ module.exports = { app };
 
 ![](./assets/prisma.png)
 
-# Restfull
+# Restfull Client
+
 - TEST API'S IN VSCODE WITH [THUNDER CLIENT](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client)
 
 - go to vs code extensions tab and locate the extension
@@ -281,8 +282,8 @@ module.exports = { app };
 
 ![](./assets/2-thunder-get.png)
 
+# Express Routes
 
-# Routes
 - create a routing folder for users in the directory <b>/src/routes/users/index.js</b>
 
 <pre>
@@ -312,12 +313,10 @@ module.exports = { app };
 - inside this file import a router from express on the first line
 
 ```js
-const router = require('express').Router();
-
+const router = require("express").Router();
 ```
 
 - in the <b>next line</b> file, add routes to get, create, delete and update the user by the key [uuid](<https://pt.wikipedia.org/wiki/Identificador_%C3%BAnico_universal#:~:text=Um%20identificador%20%C3%BAnico%20universal%20(do,%2D%20GUID)%20tamb%C3%A9m%20%C3%A9%20utilizado.>)
-
 
 ```js
 // GET http://locahost:3001/users => show all users
@@ -326,7 +325,9 @@ router.get("/", async (req, res) => {
   res.json(user);
 });
 ```
+
 ![](./assets/2-thunder-get.png)
+
 ```js
 // GET http://locahost:3001/users/${uuid} => show one user by uuid
 router.get("/:uuid", async (req, res) => {
@@ -338,7 +339,9 @@ router.get("/:uuid", async (req, res) => {
   res.json(user);
 });
 ```
+
 ![](./assets/2-thunder-get-uk.png)
+
 ```js
 // POST http://locahost:3001/users => create new user
 router.post("/", async (req, res) => {
@@ -348,7 +351,9 @@ router.post("/", async (req, res) => {
   res.json(user);
 });
 ```
+
 ![](./assets/4-thunder-post.png)
+
 ```js
 // PUT http://locahost:3001/users/${uuid} => update one user by uuid
 router.put("/:uuid", async (req, res) => {
@@ -361,7 +366,9 @@ router.put("/:uuid", async (req, res) => {
   res.json(user);
 });
 ```
+
 ![](./assets/5-thunder-put.png)
+
 ```js
 // [DELETE] http://locahost:3001/users/${uuid} => delete one user by uuid
 app.delete("/:uuid", async (req, res) => {
@@ -373,6 +380,7 @@ app.delete("/:uuid", async (req, res) => {
   res.json(user);
 });
 ```
+
 ![](./assets/3-thunder-delete.png)
 
 - on the <b>last line</b> of this file, export the router
@@ -387,9 +395,35 @@ module.exports = router;
 const express = require("express");
 const app = express();
 const db = require("../prisma");
-const Users = require("./routes/users")
+const Users = require("./routes/users");
 
+  app.use(express.json());
   app.use("/users", Users);
 
 module.exports = { app };
+```
+
+- express.json() middleware parse the request body and place the result in req.body of your route.
+example:
+```js
+app.post("/", async function (req, res) {
+  // to access post data in [POST] http://localhost:3001
+  req.body = {
+    name: "Jhonny Doe",
+    email: "jhon@doe.com",
+  };
+
+  // to access querystring data in http://localhost:3001?name=Jhonny Doe&email=jhon@doe.com
+  req.query = {
+    name: "Jhonny Doe",
+    email: "jhon@doe.com",
+  };
+});
+
+// to access params data in url by http://localhost:3001/Jhonny Doe
+app.get("/:name", async function (req, res) {
+  req.params = {
+    name: "Jhonny Doe",
+  };
+});
 ```
