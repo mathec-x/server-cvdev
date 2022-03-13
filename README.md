@@ -229,14 +229,14 @@ const app = express();
 const db = require("../prisma");
 
 /**
- * - app.get = This route path matches requests to the root route "http://localhost/api"
+ * - app.get = This route path matches requests to the root route "http://localhost"
  * - :email? =  the "symbol ?", means it is an optional property
  */
 
-app.get("/api/:email?", async (req, res) => {
+app.get("/:email?", async (req, res) => {
   if (req.params.email) {
     /**
-     * if the route is http://localhost:3001/api/some-email-registered
+     * if the route is http://localhost:3001/some-email-registered
      * enter this condition
      */
     const user = await db.user.findFirst({
@@ -279,25 +279,35 @@ module.exports = { app };
 
 ![](./assets/2-thunder.png)
 
-- in the app.js file, add the route to create, delete and update the user by the key [uuid](<https://pt.wikipedia.org/wiki/Identificador_%C3%BAnico_universal#:~:text=Um%20identificador%20%C3%BAnico%20universal%20(do,%2D%20GUID)%20tamb%C3%A9m%20%C3%A9%20utilizado.>)
+- create a routing folder for users in the directory <b>/src/routes/users/index.js</b>
 
-- for safety, always use the UUID to find a data
+<pre>
+<text style="color: green">~/Projects/cvdev/server</text> mkdir routes
+<text style="color: green">~/Projects/cvdev/server</text> mkdir routes/users
+<text style="color: green">~/Projects/cvdev/server</text> touch routes/users/index.js
+</pre>
+
+- inside this file import a router from express on the first line
 
 ```js
-const express = require("express");
-const app = express();
-const db = require("../prisma");
+const Router = require('express').Router();
 
-// GET http://locahost:3001/api => show all users
-app.get("/api", async (req, res) => {
+```
+
+- in the <b>next line</b> file, add routes to create, delete and update the user by the key [uuid](<https://pt.wikipedia.org/wiki/Identificador_%C3%BAnico_universal#:~:text=Um%20identificador%20%C3%BAnico%20universal%20(do,%2D%20GUID)%20tamb%C3%A9m%20%C3%A9%20utilizado.>)
+
+
+```js
+// GET http://locahost:3001/users => show all users
+router.get("", async (req, res) => {
   const user = await db.user.findMany();
   res.json(user);
 });
 ```
 ![](./assets/2-thunder-get.png)
 ```js
-// GET http://locahost:3001/api/${uuid} => show one user by uuid
-app.get("/api/:uuid", async (req, res) => {
+// GET http://locahost:3001/users/${uuid} => show one user by uuid
+router.get("/:uuid", async (req, res) => {
   const user = await db.user.findFirst({
     where: {
       uuid: req.params.uuid,
@@ -308,8 +318,8 @@ app.get("/api/:uuid", async (req, res) => {
 ```
 ![](./assets/2-thunder-get-uk.png)
 ```js
-// POST http://locahost:3001/api => create new user
-app.post("/api", async (req, res) => {
+// POST http://locahost:3001/users => create new user
+router.post("/", async (req, res) => {
   const user = await db.user.create({
     data: req.body,
   });
@@ -318,8 +328,8 @@ app.post("/api", async (req, res) => {
 ```
 ![](./assets/5-thunder-put.png)
 ```js
-// PUT http://locahost:3001/api/${uuid} => update one user by uuid
-app.put("/api/:uuid", async (req, res) => {
+// PUT http://locahost:3001/users/${uuid} => update one user by uuid
+router.put("/:uuid", async (req, res) => {
   const user = await db.user.update({
     where: {
       uuid: req.params.uuid,
@@ -331,8 +341,8 @@ app.put("/api/:uuid", async (req, res) => {
 ```
 ![](./assets/3-thunder-delete.png)
 ```js
-// [DELETE] http://locahost:3001/api/${uuid} => delete one user by uuid
-app.delete("/api/:uuid", async (req, res) => {
+// [DELETE] http://locahost:3001/users/${uuid} => delete one user by uuid
+app.delete("/:uuid", async (req, res) => {
   const user = await db.user.delete({
     where: {
       uuid: req.params.uuid,
@@ -340,6 +350,22 @@ app.delete("/api/:uuid", async (req, res) => {
   });
   res.json(user);
 });
+```
+- on the <b>last line</b> of this file, export the router
+
+```js
+module.exports = Router;
+```
+
+- modify the <b>app.js</b> file by importing the user routes, and use it as an app middleware
+
+```js
+const express = require("express");
+const app = express();
+const db = require("../prisma");
+const Users = require("./routes/users")
+
+  app.use("/users", Users);
 
 module.exports = { app };
 ```
