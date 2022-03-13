@@ -49,7 +49,7 @@ services:
     environment:
       POSTGRES_DB: "cvdev"
       POSTGRES_HOST_AUTH_METHOD: "trust"
-      POSTGRES_USER: "user"
+      POSTGRES_USER: "postgres"
       POSTGRES_PASSWORD: "qwerty123"
     ports:
       - "5432:5432"
@@ -180,7 +180,7 @@ npx prisma init
 - a new file called <b>.env</b> appeared, change the password and user of this file in DATABASE_URL to the same ones that are in dockercompose
 
 ```bash
-DATABASE_URL="postgresql://user:qwerty123@localhost:5432/cvdev"
+DATABASE_URL="postgresql://postgres:qwerty123@localhost:5432/cvdev"
 ```
 
 - a new directory called <b>prisma</b> appeared
@@ -289,19 +289,13 @@ const app = express();
 const db = require("../prisma");
 
 // GET http://locahost:3001/api => show all users
-app.get("/api", async (req, res) => { 
+app.get("/api", async (req, res) => {
   const user = await db.user.findMany();
   res.json(user);
 });
-
-// POST http://locahost:3001/api => create new user
-app.post("/api", async (req, res) => {
-  const user = await db.user.create({
-    data: req.body
-  });
-  res.json(user);
-});
-
+```
+![](./assets/2-thunder-get.png)
+```js
 // GET http://locahost:3001/api/${uuid} => show one user by uuid
 app.get("/api/:uuid", async (req, res) => {
   const user = await db.user.findFirst({
@@ -311,29 +305,41 @@ app.get("/api/:uuid", async (req, res) => {
   });
   res.json(user);
 });
-
+```
+![](./assets/2-thunder-get-uk.png)
+```js
+// POST http://locahost:3001/api => create new user
+app.post("/api", async (req, res) => {
+  const user = await db.user.create({
+    data: req.body,
+  });
+  res.json(user);
+});
+```
+![](./assets/5-thunder-put.png)
+```js
 // PUT http://locahost:3001/api/${uuid} => update one user by uuid
 app.put("/api/:uuid", async (req, res) => {
   const user = await db.user.update({
-    where: { 
-      uuid: req.params.uuid 
+    where: {
+      uuid: req.params.uuid,
     },
-    data: req.body
-
+    data: req.body,
   });
   res.json(user);
 });
-
+```
+![](./assets/3-thunder-delete.png)
+```js
 // [DELETE] http://locahost:3001/api/${uuid} => delete one user by uuid
 app.delete("/api/:uuid", async (req, res) => {
   const user = await db.user.delete({
-    where: { 
-      uuid: req.params.uuid 
-    }
+    where: {
+      uuid: req.params.uuid,
+    },
   });
   res.json(user);
 });
-
 
 module.exports = { app };
 ```
