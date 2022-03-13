@@ -20,10 +20,10 @@ const OpenStreetMap = NodeGeocoder({
     provider: 'openstreetmap',
 });
 
-const BingStreetMap = NodeGeocoder({
-    provider: 'virtualearth',
-    apiKey: process.env.BING_API_KEY // get one in https://www.bingmapsportal.com/Application
-});
+// const BingStreetMap = NodeGeocoder({
+//     provider: 'virtualearth',
+//     apiKey: process.env.BING_API_KEY // get one in https://www.bingmapsportal.com/Application
+// });
 
 /**
  * @param {string} string
@@ -44,19 +44,19 @@ exports.geocode = async (string) => {
         console.log("\n[catch geocode OpenStreetMap]\n", string)
     }
 
-    if (process.env.BING_API_KEY) {
-        try {
-            console.log("\n[search geocode Bing]", string);
-            data = await new Promise(
-                (res, reject) => BingStreetMap.geocode(string, (err, data) => (err) ? reject(err) : res(data))
-            );
-            if (data.length > 0) return data;
+    // if (process.env.BING_API_KEY) {
+    //     try {
+    //         console.log("\n[search geocode Bing]", string);
+    //         data = await new Promise(
+    //             (res, reject) => BingStreetMap.geocode(string, (err, data) => (err) ? reject(err) : res(data))
+    //         );
+    //         if (data.length > 0) return data;
 
-            console.log("\r[Notfound]\n");
-        } catch {
-            console.log("\n[catch geocode BingCoord]\n", string);
-        }
-    }
+    //         console.log("\r[Notfound]\n");
+    //     } catch {
+    //         console.log("\n[catch geocode BingCoord]\n", string);
+    //     }
+    // }
 
     return data;
 }
@@ -75,14 +75,14 @@ exports.reverse = async (latlon) => {
         console.log('[catch reverse OpenStreetMap]', error);
     }
 
-    if(process.env.BING_API_KEY){
-        try {
-            return await BingStreetMap.reverse({ lat: Number(lat), lon: Number(lon) });
-        }
-        catch (error) {
-            console.log('[catch reverse Bing]', error);
-        }
-    }
+    // if(process.env.BING_API_KEY){
+    //     try {
+    //         return await BingStreetMap.reverse({ lat: Number(lat), lon: Number(lon) });
+    //     }
+    //     catch (error) {
+    //         console.log('[catch reverse Bing]', error);
+    //     }
+    // }
 
     return [];
 }
