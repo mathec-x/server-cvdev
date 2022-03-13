@@ -18,7 +18,8 @@ cd ~ #this will take you to root;
 ~$ cd ./Projects/cdvdev/server
 ```
 
-### 2) use server directory to start  
+### 2) use server directory to start
+
 - <code> npm init -y </code> .
 - create a docker compose file <code>touch docker-compose.yml</code>.
 - create a directory <code>mkdir src</code>, thats where all the code logic goes.
@@ -31,7 +32,7 @@ cd ~ #this will take you to root;
         └── server
             ├── src
                 ├── ...
-                └── server.js    
+                └── server.js
             ├── docker-compose.yml
             └── package,json
 ```
@@ -39,7 +40,7 @@ cd ~ #this will take you to root;
 ### 3) and set up a postresql database with these settings inside <b>docker-compose.yml</b> file
 
 ```yml
-version: '3.5'
+version: "3.5"
 
 services:
   dbwebcv:
@@ -54,19 +55,20 @@ services:
       - "5432:5432"
 ```
 
-
 if you run compose, is the database starded?
 
 try:
+
 ```
 docker-compose up
 ```
+
 you should see a message like this
 
 <code style="font-size: 11px">
 <b style="color: cyan">dbwebcv_1</b> | yyyy-mm-dd UTC [1] LOG:  listening on IPv4 address "0.0.0.0", port 5432
 
-<b style="color: cyan">dbwebcv_1</b> | yyyy-mm-dd UTC [1] LOG:  listening on IPv6 address "::", port 5432
+<b style="color: cyan">dbwebcv_1</b> | yyyy-mm-dd UTC [1] LOG: listening on IPv6 address "::", port 5432
 </code>
 
 stop the process by pressing <code>ctrl + C</code>
@@ -80,18 +82,22 @@ sudo npm i -g nodemon
 ```
 
 ### 5) open the project in visual studio code (vscode), install it if you don't have it
-- open the editor with this command 
+
+- open the editor with this command
+
 ```bash
 code .
 ```
 
 ### 6) install the first project dependency
+
 ```bash
 sudo npm i express
 ```
 
 ### 7) modify the <code>package.json</code> file
- - change the project name to <i>server-cvdev</i> and add a database + server init <i>script</i>
+
+- change the project name to <i>server-cvdev</i> and add a database + server init <i>script</i>
 
 <pre>
 {
@@ -119,15 +125,16 @@ sudo npm i express
 - launch an express app inside <b>app.js</b> and export it
 
 ```js
-const express = require('express')
+const express = require("express");
 const app = express();
 
-    app.get('/', (req, res) => {
-        res.send('it works');
-    })
+app.get("/", (req, res) => {
+  res.send("it works");
+});
 
 module.exports = { app };
 ```
+
 - and indicate the <b>server.js</b> file the startup application
 
 ```js
@@ -135,36 +142,40 @@ const { app } = require("./app");
 const PORT = process.env.PORT || 3001;
 
 app.listen(PORT, () => {
-    console.log('running server at http://localhost:' + PORT);
+  console.log("running server at http://localhost:" + PORT);
 });
 ```
- - note: In Node. js, process.env <b>is a global variable that is injected during runtime</b>. It is a view of the state of the system environment variables. When we set an environment variable, it is loaded into process. [see this link for more information](https://www.section.io/engineering-education/nodejs-environment-variables/#:~:text=js-,In%20Node.,it%20is%20loaded%20into%20process.)
 
- - if the server is started, you can access the url localhost:3001 through chrome, try to access
+- note: In Node. js, process.env <b>is a global variable that is injected during runtime</b>. It is a view of the state of the system environment variables. When we set an environment variable, it is loaded into process. [see this link for more information](https://www.section.io/engineering-education/nodejs-environment-variables/#:~:text=js-,In%20Node.,it%20is%20loaded%20into%20process.)
 
- #
- ## Prisma
+- if the server is started, you can access the url localhost:3001 through chrome, try to access
 
-- Prisma is an open-source [ORM](https://www.devmedia.com.br/orm-object-relational-mapper/19056) for Node. js and TypeScript. It is used as an alternative to writing plain SQL, or using another database access tool such as SQL query builders (like knex. js) or ORMs (like TypeORM and Sequelize). Prisma currently supports PostgreSQL, MySQL, SQL Server, SQLite and MongoDB (preview). [see this link for more information](https://docs.nestjs.com/recipes/prisma#:~:text=Prisma%20is%20an%20open%2Dsource,SQLite%20and%20MongoDB%20(preview).)
+#
 
- - open the terminal in the <b>server</b> folder (this is the project root).
- <i>whenever you run the package installation script, the terminal must be in root</i>
+## Prisma
+
+- Prisma is an open-source [ORM](https://www.devmedia.com.br/orm-object-relational-mapper/19056) for Node. js and TypeScript. It is used as an alternative to writing plain SQL, or using another database access tool such as SQL query builders (like knex. js) or ORMs (like TypeORM and Sequelize). Prisma currently supports PostgreSQL, MySQL, SQL Server, SQLite and MongoDB (preview). [see this link for more information](<https://docs.nestjs.com/recipes/prisma#:~:text=Prisma%20is%20an%20open%2Dsource,SQLite%20and%20MongoDB%20(preview).>)
+
+- open the terminal in the <b>server</b> folder (this is the project root).
+  <i>whenever you run the package installation script, the terminal must be in root</i>
 
 - to use this, you must install the prism engine as devDependecies by adding the <b>--save-dev</b> tag
- ```bash
-npm install prisma --save-dev
- ```
-- then install the prisma client
+
 ```bash
-npm install @prisma/client 
+npm install prisma --save-dev
 ```
 
- - and then start the client
+- then install the prisma client
 
+```bash
+npm install @prisma/client
+```
 
- ```bash
+- and then start the client
+
+```bash
 npx prisma init
- ```
+```
 
 - a new file called <b>.env</b> appeared, change the password and user of this file in DATABASE_URL to the same ones that are in dockercompose
 
@@ -184,100 +195,137 @@ model User {
   name       String?
 }
 ```
-- note: <code>name  String?</code> 
+
+- note: <code>name String?</code>
 
 - whenever you change this file, those changes must be pushed to the database, so run
+
 ```
 npx prisma db push
 ```
+
 - next to the schema.prisma file, create an index.js to export the database connection
+
 ```js
-const { PrismaClient } = require('@prisma/client');
-const db = new PrismaClient()
+const { PrismaClient } = require("@prisma/client");
+const db = new PrismaClient();
 
 module.exports = db;
 ```
 
 - view the database and add users manually in the user table
+
 ```
 npx prisma studio
 ```
+
 - go back on your get route and try to perform some actions
 - [practice the express](https://expressjs.com/pt-br/guide/routing.html)
 
-``` js
-    const express = require('express') 
-    const app = express();
+```js
+const express = require("express");
+const app = express();
 
-    const db = require('../prisma');
+const db = require("../prisma");
 
-  /**
-   * - app.get = This route path matches requests to the root route "http://localhost/api"
-   * - :email? =  the "symbol ?", means it is an optional property
-   */
-    
-    app.get('/api/:email?', async (req, res) => {
+/**
+ * - app.get = This route path matches requests to the root route "http://localhost/api"
+ * - :email? =  the "symbol ?", means it is an optional property
+ */
 
-      if(req.params.email){
-           /**
-            * if the route is http://localhost:3001/api/some-email-registered
-            * enter this condition
-            */
-            const user = await db.user.findFirst({
-                where: {
-                    email: req.params.email
-                }
-            });
-     
-          /**
-           * Sends a JSON response.
-           */
-            res.json(user);
+app.get("/api/:email?", async (req, res) => {
+  if (req.params.email) {
+    /**
+     * if the route is http://localhost:3001/api/some-email-registered
+     * enter this condition
+     */
+    const user = await db.user.findFirst({
+      where: {
+        email: req.params.email,
+      },
+    });
 
-        } else {
-            const user = await db.user.findMany(); // brings all users with prisma in database
+    /**
+     * Sends a JSON response.
+     */
+    res.json(user);
+  } else {
+    const user = await db.user.findMany(); // brings all users with prisma in database
 
-            /**
-             * Sends a JSON response.
-             */
-            res.json(user);
-        }
-    })
+    /**
+     * Sends a JSON response.
+     */
+    res.json(user);
+  }
+});
 
-    module.exports = { app };
-
+module.exports = { app };
 ```
 
-- note: add prisma extension to help with formatting, if using linux use <b>ctrl+shft+i</b> on keyboard to auto format 
-document
+- note: add prisma extension to help with formatting, if using linux use <b>ctrl+shft+i</b> on keyboard to auto format
+  document
 
 ![](./assets/prisma.png)
 
 #
+
 ## TEST API'S IN VSCODE WITH [THUNDER CLIENT](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client)
 
 - go to vs code extensions tab and locate the extension
 
 ![](./assets/1-thunder.png)
 
-
 - click <b>new request</b> and add a <b>GET</b> call to the url
 
 ![](./assets/2-thunder.png)
 
-- no arquivo app.js, adicione a rota para criar, exlcluir e atualizar o usuário pelo chave [uuid](https://pt.wikipedia.org/wiki/Identificador_%C3%BAnico_universal#:~:text=Um%20identificador%20%C3%BAnico%20universal%20(do,%2D%20GUID)%20tamb%C3%A9m%20%C3%A9%20utilizado.)
+- in the app.js file, add the route to create, delete and update the user by the key [uuid](<https://pt.wikipedia.org/wiki/Identificador_%C3%BAnico_universal#:~:text=Um%20identificador%20%C3%BAnico%20universal%20(do,%2D%20GUID)%20tamb%C3%A9m%20%C3%A9%20utilizado.>)
+
+- for safety, always use the UUID to find a data
+
+```js
+const express = require("express");
+const app = express();
+const db = require("../prisma");
+
+// http://locahost:3001/api
+app.get("/api", async (req, res) => {
+  const user = await db.user.findMany();
+  res.json(user);
+});
+
+// http://locahost:3001/api/${uuid}
+app.get("/api/:uuid", async (req, res) => {
+  const user = await db.user.findFirst({
+    where: {
+      uuid: req.params.uuid,
+    },
+  });
+  res.json(user);
+});
+
+// http://locahost:3001/api/${uuid}
+app.put("/api/:uuid", async (req, res) => {
+  const user = await db.user.update({
+    where: { 
+      uuid: req.params.uuid 
+    },
+    data: req.body
+
+  });
+  res.json(user);
+});
+
+// http://locahost:3001/api/${uuid}
+app.put("/api/:uuid", async (req, res) => {
+  const user = await db.user.delete({
+    where: { 
+      uuid: req.params.uuid 
+    }
+  });
+  res.json(user);
+});
 
 
-
-``` js
-    const express = require('express') 
-    ...
-    ...
-
-
-    ...
-    ...
-    ...
-    module.exports = { app };
-
+module.exports = { app };
 ```
