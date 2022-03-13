@@ -279,7 +279,7 @@ module.exports = { app };
 
 - click <b>new request</b> and add a <b>GET</b> call to the url
 
-![](./assets/2-thunder.png)
+![](./assets/2-thunder-get.png)
 
 
 # Routes
