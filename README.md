@@ -321,7 +321,7 @@ const router = require('express').Router();
 
 ```js
 // GET http://locahost:3001/users => show all users
-router.get("", async (req, res) => {
+router.get("/", async (req, res) => {
   const user = await db.user.findMany();
   res.json(user);
 });
