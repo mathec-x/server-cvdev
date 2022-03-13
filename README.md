@@ -306,7 +306,7 @@ module.exports = { app };
 - inside this file import a router from express on the first line
 
 ```js
-const Router = require('express').Router();
+const router = require('express').Router();
 
 ```
 
