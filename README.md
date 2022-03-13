@@ -428,11 +428,23 @@ try {
     const user = await db.user.create({
       data: req.body,
     });
-    res.json(user);
+    // status 201 Created https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/201
+    res.status(201).json(user);
   } catch (error) {
-    console.log(error);
-    res.status(400)json({message: 'Error on post user'});
+    console.log(error); // show error on console but dont break the app
+
+    // status 404 Not Found https://developer.mozilla.org/en-US/docs/Web/HTTP/Status/404
+    res.status(404)json({message: 'Error on post user'});
   }
 });
 
 ```
+
+ - [HTTP response status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
+HTTP response status codes indicate whether a specific HTTP request has been successfully completed. Responses are grouped in five classes:
+
+Informational responses (100–199)
+Successful responses (200–299)
+Redirection messages (300–399)
+Client error responses (400–499)
+Server error responses (500–599)
