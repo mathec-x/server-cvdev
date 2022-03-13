@@ -314,6 +314,7 @@ module.exports = { app };
 
 ```js
 const router = require("express").Router();
+const db = require("../../../prisma"); // import your database conection from /prisma folder
 
 // GET http://locahost:3001/users => show all users
 router.get("/", async (req, res) => {
@@ -369,7 +370,6 @@ module.exports = router;
 ```js
 const express = require("express");
 const app = express();
-const db = require("../prisma");
 const Users = require("./routes/users");
 
   app.use(express.json());
