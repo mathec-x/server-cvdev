@@ -310,25 +310,17 @@ module.exports = { app };
             └── package.json
 </pre>
 
-- inside this file import a router from express on the first line
+- inside this file import a router from express on the first line, in the <b>next line</b> file, add routes to get, create, delete and update the user by the key [uuid](<https://pt.wikipedia.org/wiki/Identificador_%C3%BAnico_universal#:~:text=Um%20identificador%20%C3%BAnico%20universal%20(do,%2D%20GUID)%20tamb%C3%A9m%20%C3%A9%20utilizado.>), and export the router.
 
 ```js
 const router = require("express").Router();
-```
 
-- in the <b>next line</b> file, add routes to get, create, delete and update the user by the key [uuid](<https://pt.wikipedia.org/wiki/Identificador_%C3%BAnico_universal#:~:text=Um%20identificador%20%C3%BAnico%20universal%20(do,%2D%20GUID)%20tamb%C3%A9m%20%C3%A9%20utilizado.>)
-
-```js
 // GET http://locahost:3001/users => show all users
 router.get("/", async (req, res) => {
   const user = await db.user.findMany();
   res.json(user);
 });
-```
 
-![](./assets/2-thunder-get.png)
-
-```js
 // GET http://locahost:3001/users/${uuid} => show one user by uuid
 router.get("/:uuid", async (req, res) => {
   const user = await db.user.findFirst({
@@ -338,11 +330,8 @@ router.get("/:uuid", async (req, res) => {
   });
   res.json(user);
 });
-```
 
-![](./assets/2-thunder-get-uk.png)
 
-```js
 // POST http://locahost:3001/users => create new user
 router.post("/", async (req, res) => {
   const user = await db.user.create({
@@ -350,11 +339,7 @@ router.post("/", async (req, res) => {
   });
   res.json(user);
 });
-```
 
-![](./assets/4-thunder-post.png)
-
-```js
 // PUT http://locahost:3001/users/${uuid} => update one user by uuid
 router.put("/:uuid", async (req, res) => {
   const user = await db.user.update({
@@ -365,11 +350,7 @@ router.put("/:uuid", async (req, res) => {
   });
   res.json(user);
 });
-```
 
-![](./assets/5-thunder-put.png)
-
-```js
 // [DELETE] http://locahost:3001/users/${uuid} => delete one user by uuid
 app.delete("/:uuid", async (req, res) => {
   const user = await db.user.delete({
@@ -379,15 +360,22 @@ app.delete("/:uuid", async (req, res) => {
   });
   res.json(user);
 });
+
+module.exports = router;
 ```
+
+- test all in thunder client
+
+![](./assets/2-thunder-get.png)
+
+![](./assets/2-thunder-get-uk.png)
+
+![](./assets/4-thunder-post.png)
+
+![](./assets/5-thunder-put.png)
 
 ![](./assets/3-thunder-delete.png)
 
-- on the <b>last line</b> of this file, export the router
-
-```js
-module.exports = router;
-```
 
 - modify the <b>app.js</b> file by importing the user routes, and use it as an app middleware
 
