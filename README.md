@@ -415,3 +415,24 @@ app.get("/:name", async function (req, res) {
   };
 });
 ```
+
+### prevent errors
+
+- implement try catch on routes to return an error status if it doesn't work
+
+```js
+// POST http://locahost:3001/users => create new user
+router.post("/", async (req, res) => {
+
+try {
+    const user = await db.user.create({
+      data: req.body,
+    });
+    res.json(user);
+  } catch {
+
+    res.status(400)json({message: 'Error on post user'});
+  }
+});
+
+```
