@@ -297,6 +297,7 @@ module.exports = { app };
 ── ~/Projects
     └── cvdev
         └── server
+            <b style="opacity: 0.6">├── node_modules</b>
             ├── src
                 <b>├── routes
                     └── users
@@ -304,6 +305,7 @@ module.exports = { app };
                 ├── app.js
                 └── server.js
             ├── docker-compose.yml
+            <b style="opacity: 0.6">├── package-lock.json</b>
             └── package.json
 </pre>
 
