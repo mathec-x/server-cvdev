@@ -372,8 +372,9 @@ app.delete("/:uuid", async (req, res) => {
   });
   res.json(user);
 });
-![](./assets/3-thunder-delete.png)
 ```
+![](./assets/3-thunder-delete.png)
+
 - on the <b>last line</b> of this file, export the router
 
 ```js
