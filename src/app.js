@@ -16,7 +16,7 @@ const app = express();
 const server = http.createServer(app);
 
 const io = new Server(server, {
-    parser: process.env.NODE_ENV === 'production' ? ioparser : null,
+    parser: ioparser, // process.env.NODE_ENV === 'production' ? ioparser : null,
     cors: {
         origin: '*'
     }
