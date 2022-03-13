@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-const CACHE_NAME = '34Wag4MrEl';
+const CACHE_NAME = 'EefFMDVkRV';
 const urlsToCache = [
   "/",
   "/assets/example_typings_2.png",
