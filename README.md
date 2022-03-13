@@ -212,7 +212,7 @@ npx prisma studio
     const db = require('../prisma');
 
   /**
-   * - app.get = This route path matches requests to the root route, /
+   * - app.get = This route path matches requests to the root route "http://localhost"
    * - :email? =  the "symbol ?", means it is an optional property
    */
     
@@ -220,7 +220,7 @@ npx prisma studio
 
       if(req.params.email){
            /**
-            * if the route is localhost:3001/some-email-cadastrado
+            * if the route is http://localhost:3001/some-email-cadastrado
             * enter this condition
             */
             const user = await db.user.findFirst({
