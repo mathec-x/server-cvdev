@@ -294,7 +294,7 @@ const Router = require('express').Router();
 
 ```
 
-- in the <b>next line</b> file, add routes to create, delete and update the user by the key [uuid](<https://pt.wikipedia.org/wiki/Identificador_%C3%BAnico_universal#:~:text=Um%20identificador%20%C3%BAnico%20universal%20(do,%2D%20GUID)%20tamb%C3%A9m%20%C3%A9%20utilizado.>)
+- in the <b>next line</b> file, add routes to get, create, delete and update the user by the key [uuid](<https://pt.wikipedia.org/wiki/Identificador_%C3%BAnico_universal#:~:text=Um%20identificador%20%C3%BAnico%20universal%20(do,%2D%20GUID)%20tamb%C3%A9m%20%C3%A9%20utilizado.>)
 
 
 ```js
