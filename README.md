@@ -36,7 +36,7 @@ cd ~ #this will take you to root;
             └── package,json
 ```
 
-### 3) and set up a postresql database with these settings
+### 3) and set up a postresql database with these settings inside <b>docker-compose.yml</b> file
 
 ```yml
 version: '3.5'
@@ -181,6 +181,7 @@ model User {
   uuid       String      @unique @default(uuid())
   email      String      @unique
   password   String
+  name       String?
 }
 ```
 
@@ -202,11 +203,12 @@ npx prisma studio
 ```
 - go back on your get route and try to perform some actions
 
-```js
-const express = require('express')
-const app = express();
+<code>
 
-const db = require('../prisma');
+    const express = require('express')
+    const app = express();
+
+    const db = require('../prisma');
 
     app.get('/:email?', async (req, res) => {
 
@@ -224,6 +226,7 @@ const db = require('../prisma');
         }
     })
 
-module.exports = { app };
-```
+    module.exports = { app };
+
+</code>
 
