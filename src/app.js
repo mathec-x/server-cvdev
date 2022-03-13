@@ -35,9 +35,9 @@ app.use(cors())
     .use(useragent.express())
     .use(nextApi({base: '/api'}))
 
-app.use(express.static(path.resolve(__dirname, '../../web/build')));
+app.use(express.static(path.resolve(__dirname, '../public')));
 app.get('*', (_, res) => {
-    res.sendFile(path.resolve(__dirname, '../../web/build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, '../public', 'index.html'));
 });
 
 module.exports = { io, app: server };
