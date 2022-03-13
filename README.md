@@ -326,7 +326,7 @@ router.post("/", async (req, res) => {
   res.json(user);
 });
 ```
-![](./assets/5-thunder-put.png)
+![](./assets/4-thunder-post.png)
 ```js
 // PUT http://locahost:3001/users/${uuid} => update one user by uuid
 router.put("/:uuid", async (req, res) => {
@@ -339,7 +339,7 @@ router.put("/:uuid", async (req, res) => {
   res.json(user);
 });
 ```
-![](./assets/3-thunder-delete.png)
+![](./assets/5-thunder-put.png)
 ```js
 // [DELETE] http://locahost:3001/users/${uuid} => delete one user by uuid
 app.delete("/:uuid", async (req, res) => {
@@ -350,6 +350,7 @@ app.delete("/:uuid", async (req, res) => {
   });
   res.json(user);
 });
+![](./assets/3-thunder-delete.png)
 ```
 - on the <b>last line</b> of this file, export the router
 
