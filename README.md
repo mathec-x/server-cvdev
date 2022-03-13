@@ -220,7 +220,7 @@ npx prisma studio
 
       if(req.params.email){
            /**
-            * if the route is http://localhost:3001/some-email-cadastrado
+            * if the route is http://localhost:3001/some-email-registered
             * enter this condition
             */
             const user = await db.user.findFirst({
