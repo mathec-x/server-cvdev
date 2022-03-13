@@ -2,10 +2,10 @@
   "name": "server-cvdev",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./src/server.js",
   "scripts": {
     "dev": "docker-compose up --quiet-pull & nodemon ./src/server",
-    "start": "NODE_ENV=production node ./src/server.js",
+    "start": "node ./src/server.js",
     "db:up": "docker-compose up",
     "db:down": "docker-compose down",
     "db:init": "prisma init",
