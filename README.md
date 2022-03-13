@@ -8,15 +8,15 @@
 
 - note: the tilde indicates that the current folder directory is your home
 
-```bash
+<pre>
 cd ~ #this will take you to root;
 
-~$ mkdir ./Projects # create your projects dir
-~$ mkdir ./Projects/cvdev # create current project root
-~$ mkdir ./Projects/cvdev/server # create server project
+<b style="color: green">~$</b> mkdir ./Projects # create your projects dir
+<b style="color: green">~$</b> mkdir ./Projects/cvdev # create current project root
+<b style="color: green">~$</b> mkdir ./Projects/cvdev/server # create server project
 
-~$ cd ./Projects/cdvdev/server
-```
+<b style="color: green">~$</b> cd ./Projects/cdvdev/server
+</pre>
 
 ### 2) use server directory to start
 
@@ -282,9 +282,9 @@ module.exports = { app };
 - create a routing folder for users in the directory <b>/src/routes/users/index.js</b>
 
 <pre>
-<text style="color: green">~/Projects/cvdev/server</text> mkdir routes
-<text style="color: green">~/Projects/cvdev/server</text> mkdir routes/users
-<text style="color: green">~/Projects/cvdev/server</text> touch routes/users/index.js
+<b style="color: green; font-size: 9px">~/Projects/cvdev/server</b> mkdir routes
+<b style="color: green; font-size: 9px">~/Projects/cvdev/server</b> mkdir routes/users
+<b style="color: green; font-size: 9px">~/Projects/cvdev/server</b> touch routes/users/index.js
 </pre>
 
 - inside this file import a router from express on the first line
@@ -355,7 +355,7 @@ app.delete("/:uuid", async (req, res) => {
 - on the <b>last line</b> of this file, export the router
 
 ```js
-module.exports = Router;
+module.exports = router;
 ```
 
 - modify the <b>app.js</b> file by importing the user routes, and use it as an app middleware
