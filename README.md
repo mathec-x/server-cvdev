@@ -364,19 +364,6 @@ app.delete("/:uuid", async (req, res) => {
 module.exports = router;
 ```
 
-- test all in thunder client
-
-![](./assets/2-thunder-get.png)
-
-![](./assets/2-thunder-get-uk.png)
-
-![](./assets/4-thunder-post.png)
-
-![](./assets/5-thunder-put.png)
-
-![](./assets/3-thunder-delete.png)
-
-
 - modify the <b>app.js</b> file by importing the user routes, and use it as an app middleware
 
 ```js
@@ -390,6 +377,19 @@ const Users = require("./routes/users");
 
 module.exports = { app };
 ```
+
+- test all in thunder client
+
+![](./assets/2-thunder-get.png)
+
+![](./assets/2-thunder-get-uk.png)
+
+![](./assets/4-thunder-post.png)
+
+![](./assets/5-thunder-put.png)
+
+![](./assets/3-thunder-delete.png)
+
 
 - express.json() middleware parse the request body and place the result in req.body of your route.
 example:
