@@ -2,7 +2,12 @@
 
 - faq: how to build this app
 
-## Begin
+- [Begin](#Begin)
+- [Prisma](#Prisma)
+- [Restfull client](#Restfull)
+- [Express Routes](#Routes)
+
+# Begin
 
 ### 1) organize a directory to start th cvdev project inside it. the structure must separate server from other layers. use your home for master projects directory, it's easy to access by the tilde accent.
 
@@ -150,9 +155,7 @@ app.listen(PORT, () => {
 
 - if the server is started, you can access the url localhost:3001 through chrome, try to access
 
-#
-
-## Prisma
+# Prisma
 
 - Prisma is an open-source [ORM](https://www.devmedia.com.br/orm-object-relational-mapper/19056) for Node. js and TypeScript. It is used as an alternative to writing plain SQL, or using another database access tool such as SQL query builders (like knex. js) or ORMs (like TypeORM and Sequelize). Prisma currently supports PostgreSQL, MySQL, SQL Server, SQLite and MongoDB (preview). [see this link for more information](<https://docs.nestjs.com/recipes/prisma#:~:text=Prisma%20is%20an%20open%2Dsource,SQLite%20and%20MongoDB%20(preview).>)
 
@@ -267,9 +270,8 @@ module.exports = { app };
 
 ![](./assets/prisma.png)
 
-#
-
-## TEST API'S IN VSCODE WITH [THUNDER CLIENT](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client)
+# Restfull
+- TEST API'S IN VSCODE WITH [THUNDER CLIENT](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client)
 
 - go to vs code extensions tab and locate the extension
 
@@ -279,6 +281,8 @@ module.exports = { app };
 
 ![](./assets/2-thunder.png)
 
+
+# Routes
 - create a routing folder for users in the directory <b>/src/routes/users/index.js</b>
 
 <pre>
