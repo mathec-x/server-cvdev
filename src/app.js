@@ -10,6 +10,7 @@ const ioparser = require('socket.io-msgpack-parser');
 const accessToken = require('./_middlewares/access-token');
 const handshakeToken = require('./_middlewares/handshake-token');
 const socketConnection = require('./_middlewares/socket-connection');
+const path = require('path');
 
 const app = express();
 const server = http.createServer(app);
@@ -22,8 +23,8 @@ const io = new Server(server, {
 });
 
 io
-.use(handshakeToken)
-.on('connection', socketConnection);
+    .use(handshakeToken)
+    .on('connection', socketConnection);
 
 app.use(cors())
     .use(accessToken)
@@ -32,6 +33,11 @@ app.use(cors())
     .use(express.urlencoded({ extended: true }))
     .use(express.json({ type: ['application/json', 'text/plain'] }))
     .use(useragent.express())
-    .use(nextApi())
+    .use(nextApi({base: '/api'}))
+
+app.use(express.static(path.resolve(__dirname, '../../web/build')));
+app.get('*', (_, res) => {
+    res.sendFile(path.resolve(__dirname, '../../web/build', 'index.html'));
+});
 
 module.exports = { io, app: server };
