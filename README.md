@@ -184,6 +184,7 @@ model User {
   name       String?
 }
 ```
+- note: <code>name  String?</code> 
 
 - whenever you change this file, those changes must be pushed to the database, so run
 ```
@@ -202,31 +203,48 @@ module.exports = db;
 npx prisma studio
 ```
 - go back on your get route and try to perform some actions
+- [practice the express](https://expressjs.com/pt-br/guide/routing.html)
 
-<code>
-
-    const express = require('express')
+``` js
+    const express = require('express') 
     const app = express();
 
     const db = require('../prisma');
 
+  /**
+   * - app.get = This route path matches requests to the root route, /
+   * - :email? =  the "symbol ?", means it is an optional property
+   */
+    
     app.get('/:email?', async (req, res) => {
 
-        if(req.params.email){
+      if(req.params.email){
+           /**
+            * if the route is localhost:3001/some-email-cadastrado
+            * enter this condition
+            */
             const user = await db.user.findFirst({
                 where: {
                     email: req.params.email
                 }
-            }); //find by email at url
+            });
+     
+          /**
+           * Sends a JSON response.
+           */
             res.json(user);
 
         } else {
-                const user = await db.user.findMany(); // brings all users
+            const user = await db.user.findMany(); // brings all users with prisma in database
+
+            /**
+             * Sends a JSON response.
+             */
             res.json(user);
         }
     })
 
     module.exports = { app };
 
-</code>
+```
 
