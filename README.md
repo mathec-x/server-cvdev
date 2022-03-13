@@ -288,13 +288,21 @@ const express = require("express");
 const app = express();
 const db = require("../prisma");
 
-// http://locahost:3001/api
-app.get("/api", async (req, res) => {
+// GET http://locahost:3001/api => show all users
+app.get("/api", async (req, res) => { 
   const user = await db.user.findMany();
   res.json(user);
 });
 
-// http://locahost:3001/api/${uuid}
+// POST http://locahost:3001/api => create new user
+app.post("/api", async (req, res) => {
+  const user = await db.user.create({
+    data: req.body
+  });
+  res.json(user);
+});
+
+// GET http://locahost:3001/api/${uuid} => show one user by uuid
 app.get("/api/:uuid", async (req, res) => {
   const user = await db.user.findFirst({
     where: {
@@ -304,7 +312,7 @@ app.get("/api/:uuid", async (req, res) => {
   res.json(user);
 });
 
-// http://locahost:3001/api/${uuid}
+// PUT http://locahost:3001/api/${uuid} => update one user by uuid
 app.put("/api/:uuid", async (req, res) => {
   const user = await db.user.update({
     where: { 
@@ -316,8 +324,8 @@ app.put("/api/:uuid", async (req, res) => {
   res.json(user);
 });
 
-// http://locahost:3001/api/${uuid}
-app.put("/api/:uuid", async (req, res) => {
+// [DELETE] http://locahost:3001/api/${uuid} => delete one user by uuid
+app.delete("/api/:uuid", async (req, res) => {
   const user = await db.user.delete({
     where: { 
       uuid: req.params.uuid 
