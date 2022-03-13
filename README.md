@@ -248,10 +248,13 @@ npx prisma studio
 
 ```
 
+- note: add prisma extension to help with formatting, if using linux use <b>ctrl+shft+i</b> on keyboard to auto format 
+document
+
+![](./assets/prisma.png)
+
 #
 ## TEST API'S IN VSCODE WITH [THUNDER CLIENT](https://marketplace.visualstudio.com/items?itemName=rangav.vscode-thunder-client)
-
-![](https://raw.githubusercontent.com/rangav/thunder-client-support/master/images/thunder-client.gif)
 
 - go to vs code extensions tab and locate the extension
 
@@ -261,3 +264,20 @@ npx prisma studio
 - click <b>new request</b> and add a <b>GET</b> call to the url
 
 ![](./assets/2-thunder.png)
+
+- no arquivo app.js, adicione a rota para criar, exlcluir e atualizar o usuário pelo chave [uuid](https://pt.wikipedia.org/wiki/Identificador_%C3%BAnico_universal#:~:text=Um%20identificador%20%C3%BAnico%20universal%20(do,%2D%20GUID)%20tamb%C3%A9m%20%C3%A9%20utilizado.)
+
+
+
+``` js
+    const express = require('express') 
+    ...
+    ...
+
+
+    ...
+    ...
+    ...
+    module.exports = { app };
+
+```
