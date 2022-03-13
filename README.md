@@ -418,7 +418,7 @@ app.get("/:name", async function (req, res) {
 
 ### prevent errors
 
-- implement try catch on routes to return an error status if it doesn't work
+- implement [try catch](https://programandosolucoes.dev.br/2020/10/20/javascript-try-catch/#:~:text=O%20Try%20Catch%20%C3%A9%20utilizado,usu%C3%A1rio%20ou%20at%C3%A9%20mesmo%20imprevistos.) on routes to return an error status if it doesn't work
 
 ```js
 // POST http://locahost:3001/users => create new user
@@ -429,8 +429,8 @@ try {
       data: req.body,
     });
     res.json(user);
-  } catch {
-
+  } catch (error) {
+    console.log(error);
     res.status(400)json({message: 'Error on post user'});
   }
 });
