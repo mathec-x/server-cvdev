@@ -353,7 +353,7 @@ router.put("/:uuid", async (req, res) => {
 });
 
 // [DELETE] http://locahost:3001/users/${uuid} => delete one user by uuid
-app.delete("/:uuid", async (req, res) => {
+router.delete("/:uuid", async (req, res) => {
   const user = await db.user.delete({
     where: {
       uuid: req.params.uuid,
