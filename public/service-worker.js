@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-const CACHE_NAME = 'cZyX98oDVk';
+const CACHE_NAME = 'Pj1PsgaLDJ';
 const urlsToCache = [
   "/",
   "/assets/example_typings_2.png",
@@ -9,7 +9,7 @@ const urlsToCache = [
   "/index.html",
   "/service-worker.js",
   "/static/css/main.085c26d0.css",
-  "/static/js/main.c02ab5cd.js"
+  "/static/js/main.5c897be7.js"
 ];
 // const appIcon = 'default_icon_link';
 
