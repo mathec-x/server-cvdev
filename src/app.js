@@ -25,7 +25,7 @@ const io = new Server(server, {
 
 io
     .use(handshakeToken)
-    .on('connection', socketConnection);
+    .on('connection', socketConnection(io));
 
 app.use(cors())
     .use(accessToken)

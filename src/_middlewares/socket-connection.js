@@ -2,9 +2,9 @@ const db = require('../../prisma');
 const md = require('../../prisma/selectors');
 
 /** 
- * @param {import('socket.io').Socket} socket 
+ * @type { (io: import('socket.io').Server) => (socket: import('socket.io').Socket) => void } 
  */
-const socketConnection = (socket) => {
+const socketConnection = (io) => (socket) => {
     if (socket.user) {
         socket.join(socket.user.uuid);
         try {
@@ -37,14 +37,17 @@ const socketConnection = (socket) => {
 
         }).catch(() => {
             socket.emit('dispatch', { type: 'candidate:mount', payload: {} });
+        }).finally(async () => {
+            io.in(nick).emit('subscriptions', (await io.in(nick).allSockets()).size);
         })
     })
 
-    socket.on('unsubscribe', (nick) => {
+    socket.on('unsubscribe', async (nick) => {
         console.log('unsubscribe to', nick);
         socket.emit('unsubscribe');
         // socket.emit('dispatch', { type: 'candidate:mount', payload: {} });
         socket.leave(nick);
+        io.in(nick).emit('subscriptions', (await io.in(nick).allSockets()).size);
     })
 }
 
