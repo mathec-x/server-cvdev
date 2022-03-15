@@ -8,7 +8,24 @@ exports.get = async (req, res) => {
     try {
         // @ts-ignore
         const data = await db.skill.findMany({
-            where: { tag: { contains: req.query.q.replace(/[^\w#&*]/g, '').toLocaleLowerCase() } },
+            where: {
+                OR: [
+                    {
+                        tag: {
+                            contains: req.query.q.replace(/[^\w#&*]/g, '').toLocaleLowerCase()
+                        }
+                    },{
+                        libs: {
+                            some: {
+                                tag: {
+                                    contains: req.query.q.replace(/[^\w#&*]/g, '').toLocaleLowerCase()
+                                }
+                            }
+                        }
+                    }
+
+                ]
+            },
             select: { uuid: true, tag: true, title: true },
             take: 20
         });
@@ -36,7 +53,7 @@ exports.post = async (req, res) => {
             }
         });
 
-        const candidate = await db.candidate.findUnique({where: { nick: req.subscription }, ...md.candidate })
+        const candidate = await db.candidate.findUnique({ where: { nick: req.subscription }, ...md.candidate })
         return res.to(req.subscription).dispatch('candidate:mount', candidate);
 
     } catch (error) {
@@ -60,8 +77,8 @@ exports.delete = async (req, res) => {
                 }
             }
         });
-        
-        const candidate = await db.candidate.findUnique({where: { nick: req.subscription }, ...md.candidate })
+
+        const candidate = await db.candidate.findUnique({ where: { nick: req.subscription }, ...md.candidate })
         return res.to(req.subscription).dispatch('candidate:mount', candidate);
 
     } catch (error) {
