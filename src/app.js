@@ -11,6 +11,7 @@ const accessToken = require('./_middlewares/access-token');
 const handshakeToken = require('./_middlewares/handshake-token');
 const socketConnection = require('./_middlewares/socket-connection');
 const path = require('path');
+const authorizeRequest = require('./_middlewares/authorize-request');
 
 const app = express();
 const server = http.createServer(app);
@@ -28,11 +29,12 @@ io
 
 app.use(cors())
     .use(accessToken)
-    .use(expressSocket(io))
     .use(compression())
     .use(express.urlencoded({ extended: true }))
     .use(express.json({ type: ['application/json', 'text/plain'] }))
     .use(useragent.express())
+    .use(authorizeRequest)
+    .use(expressSocket(io))
     .use(nextApi({base: '/api'}))
 
 app.use(express.static(path.resolve(__dirname, '../public')));
