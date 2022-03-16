@@ -1,13 +1,13 @@
-const db = require("../../../prisma");
-const md = require("../../../prisma/selectors");
+import db from "../../../prisma";
+import { candidates } from "../../../prisma/selectors";
 
 /**
  * @type { import("express-next-api").NextApi<{}, { email: string, image: string, name:string, nick:string }> } 
  */
- exports.post = async (req, res) => {
+ export async function  post(req, res) {
     try {
         const data = await db.candidate.create({
-            select: md.candidates.select,
+            select: candidates.select,
             data: {
                 ...req.body,
                 user: {connect: { uuid: req.user.uuid }}

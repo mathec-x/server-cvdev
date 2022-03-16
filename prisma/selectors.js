@@ -3,7 +3,7 @@
  * @typedef {import('@prisma/client').Prisma} Prisma
  */
 
-exports.address = /** @type { Prisma.AddressArgs } */ {
+export const address = /** @type { Prisma.AddressArgs } */ {
     select: {
         cep: true,
         city: true,
@@ -15,7 +15,7 @@ exports.address = /** @type { Prisma.AddressArgs } */ {
         uuid: true
     }
 }
-exports.contacts = /** @type { Prisma.ContactArgs } */ {
+export const contacts = /** @type { Prisma.ContactArgs } */ {
     select: {
         uuid: true,
         name: true,
@@ -23,14 +23,14 @@ exports.contacts = /** @type { Prisma.ContactArgs } */ {
     }
 }
 
-exports.libs = /** @type { Prisma.LibArgs } */  {
+export const libs = /** @type { Prisma.LibArgs } */  {
     select: {
         uuid: true,
         title: true,
         tag: true
     }
 }
-exports.skills = /** @type { Prisma.SkillArgs } */ {
+export const skills = /** @type { Prisma.SkillArgs } */ {
     select: {
         uuid: true,
         title: true,
@@ -38,7 +38,7 @@ exports.skills = /** @type { Prisma.SkillArgs } */ {
     }
 }
 
-exports.jobs = /** @type { Prisma.JobArgs } */ {
+export const jobs = /** @type { Prisma.JobArgs } */ {
     select: {
         uuid: true,
         occupation: true,
@@ -46,11 +46,11 @@ exports.jobs = /** @type { Prisma.JobArgs } */ {
         finish: true,
         description: true,
         company: true,
-        skills: this.skills
+        skills: skills
     }
 }
 
-exports.candidates = /** @type { Prisma.CandidateArgs } */ {
+export const candidates = /** @type { Prisma.CandidateArgs } */ {
     select: {
         email: true,
         image: true,
@@ -66,7 +66,7 @@ exports.candidates = /** @type { Prisma.CandidateArgs } */ {
     }
 }
 
-exports.candidate = /** @type { Prisma.CandidateArgs } */ {
+export const candidate = /** @type { Prisma.CandidateArgs } */ {
     select: {
         email: true,
         image: true,
@@ -74,18 +74,18 @@ exports.candidate = /** @type { Prisma.CandidateArgs } */ {
         nick: true,
         uuid: true,
         about: true,
-        address: this.address,
-        contacts: this.contacts,
-        jobs: this.jobs,
-        libs: this.libs
+        address: address,
+        contacts: contacts,
+        jobs: jobs,
+        libs: libs
     }
 }
 
 
-exports.user = /** @type { Prisma.UserArgs }*/ {
+export const user = /** @type { Prisma.UserArgs }*/ {
     select: {
         email: true,
         uuid: true,
-        candidates: this.candidates
+        candidates: candidates
     }
 }

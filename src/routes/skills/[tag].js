@@ -1,10 +1,10 @@
-const db = require('../../../prisma');
-const md = require('../../../prisma/selectors');
+import db from '../../../prisma';
+import * as md from '../../../prisma/selectors';
 
 /**
  * @type { import("express-next-api").NextApi<{tag?: string}, {}, {q: string}> } 
  */
-exports.get = async (req, res) => {
+export async function get(req, res) {
     try {
         const skill = req.params.tag ? req.params.tag.replace(/[^\w#&*]/g, '').toLocaleLowerCase() : '';
 
@@ -31,7 +31,7 @@ exports.get = async (req, res) => {
 /**
  * @type { import("express-next-api").NextApi<{tag: string}, { title: string }> } 
  */
-exports.post = async (req, res) => {
+export async function post(req, res) {
     try {
         const title = req.body.title.Capitalize();
         const tag = req.body.title.replace(/[^\w#&*]/g, '').toLocaleLowerCase();
@@ -73,7 +73,7 @@ exports.post = async (req, res) => {
 /**
  * @type { import("express-next-api").NextApi<{tag: string}, {tag: string}> } 
  */
-exports.delete = async (req, res) => {
+export async function del(req, res) {
     try {
         console.log(req.subscription, req.params.tag, req.body.tag);
         const data = await db.candidate.update({

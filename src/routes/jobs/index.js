@@ -1,20 +1,19 @@
-const db = require('../../../prisma');
-const md = require('../../../prisma/selectors');
-const { asDate } = require('../../prototypes');
+import db from '../../../prisma';
+import { candidate } from '../../../prisma/selectors';
 
 /**
- * @type { import("express-next-api").NextApi<_, import('@prisma/client').Job> }
+ * @type { import("express-next-api").NextApi<{}, import('@prisma/client').Job> }
  */
-exports.post = async (req, res) => {
+export async function post(req, res) {
     try {
         let { begin, finish, company, description, occupation  } = req.body;
 
-        begin = asDate(begin);
-        finish = asDate(finish);
+        begin = begin.toDate();
+        finish = finish.toDate();
         
         const data =  await db.candidate.update({
             where: { nick: req.subscription },
-            select: md.candidate.select,
+            select: candidate.select,
             data: { jobs: { create: { 
                 begin,
                 finish,

@@ -1,6 +1,5 @@
 {
     "compilerOptions": {
-        "baseUrl": ".",
         "checkJs": true
     },
     "include": ["src/**/*.d.ts", "src/**/*.js"],

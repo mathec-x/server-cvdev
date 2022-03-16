@@ -1,31 +1,31 @@
-const db = require('../../../prisma');
-const md = require('../../../prisma/selectors');
-const { asDate } = require('../../prototypes');
+import db from '../../../prisma';
+import { candidate } from '../../../prisma/selectors';
+
 /**
  * @type { import("express-next-api").NextApi<{uuid: string}, import('@prisma/client').Job> }
  */
-exports.put = async (req, res) => {
+export const put = async (req, res) => {
     try {
 
         let { begin, finish, company, description, occupation } = req.body;
 
-        begin = asDate(begin);
+        begin = begin.toDate();
 
         /**
          * Prisma Client differentiates between null and undefined:
          * - null is a value
          * - undefined means do nothing
          */
-        if (typeof finish !== undefined && finish?.toString() === '') {
+        if (typeof finish !== undefined && String(finish) === '') {
             finish = null;
         } else {
-            finish = asDate(finish);
+            finish = finish.toDate();
         }
 
         // console.log({ begin, finish, company, description, occupation });
         const data = await db.candidate.update({
             where: { nick: req.subscription },
-            select: md.candidate.select,
+            select: candidate.select,
             data: {
                 jobs: {
                     update: {
@@ -47,11 +47,11 @@ exports.put = async (req, res) => {
 /**
  * @type { import("express-next-api").NextApi<{uuid: string}> }
  */
-exports.delete = async (req, res) => {
+export const del = async (req, res) => {
     try {
         const data = await db.candidate.update({
             where: { nick: req.subscription },
-            select: md.candidate.select,
+            select: candidate.select,
             data: { jobs: { delete: { uuid: req.params.uuid } } }
         });
         return res.to(req.subscription).dispatch('candidate:mount', data);

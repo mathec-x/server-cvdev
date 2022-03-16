@@ -1,5 +1,5 @@
-const db = require('../../prisma');
-const md = require('../../prisma/selectors');
+import db from '../../prisma';
+import * as md from '../../prisma/selectors';
 
 /** 
  * @type { (io: import('socket.io').Server) => (socket: import('socket.io').Socket) => void } 
@@ -51,4 +51,4 @@ const socketConnection = (io) => (socket) => {
     })
 }
 
-module.exports = socketConnection;
+export default socketConnection;

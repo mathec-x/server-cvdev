@@ -1,10 +1,10 @@
-const db = require("../../../prisma");
-const bcrypt = require('bcrypt');
-const jsonwebtoken = require("jsonwebtoken");
+import db from "../../../prisma";
+import { hashSync, compareSync } from 'bcrypt';
+import { sign } from "jsonwebtoken";
 /**
  * @type { import("express-next-api").NextApi<{}, { login: string, password: string }> } 
  */
- exports.post = async (req, res) => {
+ export async function  post(req, res) {
     let status = 200;
     try {
 
@@ -17,16 +17,16 @@ const jsonwebtoken = require("jsonwebtoken");
             user = await db.user.create({
                 data: {
                     email: req.body.login,
-                    password: bcrypt.hashSync(req.body.password, 10)
+                    password: hashSync(req.body.password, 10)
                 },
             });
 
             status = 201;
         }
 
-        if(bcrypt.compareSync(req.body.password, user.password)){
+        if(compareSync(req.body.password, user.password)){
             
-            const token = jsonwebtoken.sign({
+            const token = sign({
                 uuid: user.uuid,
                 browser: req.useragent.browser,
                 os: req.useragent.os,

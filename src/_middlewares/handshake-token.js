@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+import { verify } from 'jsonwebtoken';
 
 /** 
  * @param {import('socket.io').Socket} socket 
@@ -7,7 +7,7 @@ const jwt = require('jsonwebtoken');
 const handshakeToken = (socket, next) => {
   const { token } = socket.handshake.auth;
   if (token) {
-    const data = jwt.verify(token, process.env.JWT_SECRET);
+    const data = verify(token, process.env.JWT_SECRET);
     if (typeof data === 'object') {
       socket.user = { ...data, token };
     }
@@ -17,4 +17,4 @@ const handshakeToken = (socket, next) => {
   next();
 };
 
-module.exports = handshakeToken;
+export default handshakeToken;

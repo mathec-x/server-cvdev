@@ -1,4 +1,4 @@
-const jwt = require('jsonwebtoken');
+import { verify } from 'jsonwebtoken';
 
 /**
  * @type {(req: import("express").Request, res: import("express").Response,next: import("express").NextFunction) => any}
@@ -25,7 +25,7 @@ const accessToken = async (req, res, next) => {
 
     try {
         if(token){
-            const data = jwt.verify(token, process.env.JWT_SECRET);
+            const data = verify(token, process.env.JWT_SECRET);
             /**
              * @todo Implement is token active
              */
@@ -41,4 +41,4 @@ const accessToken = async (req, res, next) => {
     next();
 };
 
-module.exports = accessToken;
+export default accessToken;

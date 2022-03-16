@@ -1,11 +1,11 @@
-const db = require("../../../prisma");
-const md = require("../../../prisma/selectors");
-const { validateBody } = require("./_helpers");
+import db from "../../../prisma";
+import * as md from "../../../prisma/selectors";
+import { validateBody } from "./_helpers";
 
 /**
  * @type { import("express-next-api").NextApi<{uuid: string}, import('@prisma/client').Prisma.CandidateUpdateArgs['data'] > } 
  */
- exports.put = async (req, res) => {
+ export async function  put(req, res) {
     try {
         const data = await db.candidate.update({
             select: md.candidate.select,
@@ -26,7 +26,7 @@ const { validateBody } = require("./_helpers");
 /**
  * @type { import("express-next-api").NextApi<{uuid: string}> } 
  */
- exports.del = async (req, res) => {
+ export async function  del(req, res) {
     try {
         const data = await db.candidate.delete({ where: { uuid: req.params.uuid } });
         res.to(data.nick).$emit('dispatch', { type: 'candidate:delete', payload: data });

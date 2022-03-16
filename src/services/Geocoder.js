@@ -1,4 +1,4 @@
-const NodeGeocoder = require('node-geocoder');
+import NodeGeocoder from 'node-geocoder';
 
 /**
  * @typedef {{
@@ -29,7 +29,7 @@ const OpenStreetMap = NodeGeocoder({
  * @param {string} string
  * @returns {Promise<NodeGeocoder.Entry[]>}
  */
-exports.geocode = async (string) => {
+export async function geocode(string) {
     let data = [];
 
     try {
@@ -65,7 +65,7 @@ exports.geocode = async (string) => {
  * @param {string} latlon
  * @return {Promise<NodeGeocoder.Entry[]>}  
  */
-exports.reverse = async (latlon) => {
+export async function reverse(latlon) {
     const [lat, lon] = latlon.split(',');
     
     try {

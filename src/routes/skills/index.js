@@ -1,12 +1,11 @@
-const db = require('../../../prisma');
-const md = require('../../../prisma/selectors');
+import db from '../../../prisma';
+import * as md from '../../../prisma/selectors';
 
 /**
  * @type { import("express-next-api").NextApi<{tag?: string}, {}, {q: string}> } 
  */
-exports.get = async (req, res) => {
+export async function get(req, res) {
     try {
-        // @ts-ignore
         const data = await db.skill.findMany({
             where: {
                 OR: [
@@ -39,9 +38,9 @@ exports.get = async (req, res) => {
 }
 
 /**
- * @type { import("express-next-api").NextApi<_, { title: string, company: string }> } 
+ * @type { import("express-next-api").NextApi<{}, { title: string, company: string }> } 
  */
-exports.post = async (req, res) => {
+export async function post(req, res) {
     try {
         const title = req.body.title.Capitalize();
         const tag = req.body.title.replace(/[^\w#&*]/g, '').toLocaleLowerCase();
@@ -63,9 +62,9 @@ exports.post = async (req, res) => {
 }
 
 /**
- * @type { import("express-next-api").NextApi<_, { tag: string, company: string }> } 
+ * @type { import("express-next-api").NextApi<{}, { tag: string, company: string }> } 
  */
-exports.delete = async (req, res) => {
+export async function del(req, res) {
     try {
         await db.job.update({
             where: { uuid: req.body.company },

@@ -55,4 +55,4 @@ const writelog = (title, value) => {
     next();
   };
   
-  module.exports = expressSocket;
+export default expressSocket;

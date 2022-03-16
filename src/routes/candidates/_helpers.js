@@ -1,5 +1,5 @@
 
-exports.validateBody = (req) => {
+export const validateBody = (req) => {
     return {
         image: req.image || undefined,
         name: req.name || undefined,

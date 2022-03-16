@@ -1,4 +1,4 @@
-const db = require("../../prisma");
+import db from "../../prisma";
 
 
 /**
@@ -23,4 +23,4 @@ const authorizeRequest = async (req, res, next) => {
     next();
 };
 
-module.exports = authorizeRequest;
+export default authorizeRequest;
