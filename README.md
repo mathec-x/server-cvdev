@@ -6,6 +6,8 @@
 - [Prisma](#prisma)
 - [Restfull client](#restfull-client)
 - [Express Routes](#express-routes)
+- [Prevent Errors](#prevent-errors)
+- [Login and encryption](#login-and-encryption)
 
 # Begin
 
@@ -332,7 +334,6 @@ router.get("/:uuid", async (req, res) => {
   res.json(user);
 });
 
-
 // POST http://locahost:3001/users => create new user
 router.post("/", async (req, res) => {
   const user = await db.user.create({
@@ -372,8 +373,8 @@ const express = require("express");
 const app = express();
 const Users = require("./routes/users");
 
-  app.use(express.json());
-  app.use("/users", Users);
+app.use(express.json());
+app.use("/users", Users);
 
 module.exports = { app };
 ```
@@ -390,9 +391,9 @@ module.exports = { app };
 
 ![](./assets/3-thunder-delete.png)
 
-
 - express.json() middleware parse the request body and place the result in req.body of your route.
-example:
+  example:
+
 ```js
 app.post("/", async function (req, res) {
   // to access post data in [POST] http://localhost:3001
@@ -416,7 +417,7 @@ app.get("/:name", async function (req, res) {
 });
 ```
 
-### prevent errors
+# prevent errors
 
 - implement [try catch](https://programandosolucoes.dev.br/2020/10/20/javascript-try-catch/#:~:text=O%20Try%20Catch%20%C3%A9%20utilizado,usu%C3%A1rio%20ou%20at%C3%A9%20mesmo%20imprevistos.) on routes to return an error status if it doesn't work
 
@@ -440,11 +441,40 @@ try {
 
 ```
 
- - [HTTP response status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
-HTTP response status codes indicate whether a specific HTTP request has been successfully completed. Responses are grouped in five classes:
+- [HTTP response status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status)
+  HTTP response status codes indicate whether a specific HTTP request has been successfully completed. Responses are grouped in five classes:
 
 - Informational responses (100–199)
 - Successful responses (200–299)
 - Redirection messages (300–399)
 - Client error responses (400–499)
 - Server error responses (500–599)
+
+# Login and encryption
+
+- implement a middleware in express to get more information about who is accessing the system
+
+<pre>
+  <b style="color: green; font-size: 9px">~/Projects/cvdev/server</b> npm install express-useragent
+</pre>
+
+```js
+const express = require("express");
+const useragent = require("express-useragent");
+const app = express();
+const Users = require("./routes/users");
+
+app.use(useragent.express());
+app.use(express.json());
+app.use("/users", Users);
+
+module.exports = { app };
+```
+
+- now we have some information on each requests in our routes in <pre>req.useragent</pre>
+
+
+
+- JWT and Authentication with bcrypt
+
+- [JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object. This information can be verified and trusted because it is digitally signed. JWTs can be signed using a secret (with the HMAC algorithm) or a public/private key pair using RSA or ECDSA.](https://jwt.io/introduction)
