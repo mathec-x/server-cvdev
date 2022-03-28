@@ -467,8 +467,8 @@ try {
     const app = express();
     const Users = require("./routes/users");
 
-    app.use(useragent.express());
-    <b>app.use(express.json());</b>
+    <b>app.use(useragent.express());</b>
+    app.use(express.json());
     app.use("/users", Users);
 
     module.exports = { app };
