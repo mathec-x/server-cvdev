@@ -458,23 +458,31 @@ try {
   <b style="color: green; font-size: 9px">~/Projects/cvdev/server</b> npm install express-useragent
 </pre>
 
-```js
-const express = require("express");
-const useragent = require("express-useragent");
-const app = express();
-const Users = require("./routes/users");
+- use as middleware
 
-app.use(useragent.express());
-app.use(express.json());
-app.use("/users", Users);
+<pre>
+  <code>
+    const express = require("express");
+    const useragent = require("express-useragent");
+    const app = express();
+    const Users = require("./routes/users");
 
-module.exports = { app };
-```
+    app.use(useragent.express());
+    <b>app.use(express.json());</b>
+    app.use("/users", Users);
 
-- now we have some information on each requests in our routes in <pre>req.useragent</pre>
+    module.exports = { app };
+  </code>
+</pre>
+
+- now we have some information on each requests in our routes in 
+
+<pre>
+  req.useragent
+</pre>
 
 
 
-- JWT and Authentication with bcrypt
+### JWT and Authentication with bcrypt
 
-- [JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object. This information can be verified and trusted because it is digitally signed. JWTs can be signed using a secret (with the HMAC algorithm) or a public/private key pair using RSA or ECDSA.](https://jwt.io/introduction)
+- JSON Web Token (JWT) is an open standard (RFC 7519) that defines a compact and self-contained way for securely transmitting information between parties as a JSON object. This information can be verified and trusted because it is digitally signed. JWTs can be signed using a secret (with the HMAC algorithm) or a public/private key pair using RSA or ECDSA. [see more...](https://jwt.io/introduction)
