@@ -7,11 +7,14 @@
         {
             "type": "pwa-node",
             "request": "launch",
+            "console": "externalTerminal",
             "name": "Server",
+            "preLaunchTask": "npm: db:upd",
+            "postDebugTask": "npm: db:stop",
             "skipFiles": [
                 "<node_internals>/**"
             ],
-            "program": "../server/index.js",
+            "program": "./index.js",
             "__workspaceFolder": "."
         }
     ]
