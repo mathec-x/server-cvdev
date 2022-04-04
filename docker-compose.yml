@@ -2,6 +2,7 @@
 version: '3.5'
 
 services:
+
   dbwebcv:
     image: postgres
     restart: always
@@ -12,6 +13,12 @@ services:
       POSTGRES_PASSWORD: "qwerty123"
     ports:
       - "5432:5432"
+    # resources:
+    #   limits:
+    #     memory: 4096M
+    #     cpus: '1.5'
+    #   reservations:
+    #     memory: 2048M
   # zookeeper:
   #   image: wurstmeister/zookeeper
   #   container_name: zookeeper

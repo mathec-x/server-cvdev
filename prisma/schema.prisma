@@ -42,6 +42,7 @@ model Candidate {
   name  String
   image String
   about String?
+  links Json @default("{}")
 
   user      User?     @relation(fields: [userId], references: [id])
   userId    Int?
@@ -58,6 +59,7 @@ model Job {
   company     String?
   occupation  String?
   description String?
+  site        String?
   begin       DateTime
   finish      DateTime?
   Address     Address?   @relation(fields: [addressId], references: [id])
@@ -81,6 +83,7 @@ model Skill {
   uuid      String     @unique @default(uuid())
   tag       String     @unique
   title     String     @unique
+  image     String?
   questions Question[]
   libs      Lib[]
   jobs      Job[]
