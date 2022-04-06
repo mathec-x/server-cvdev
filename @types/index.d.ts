@@ -32,6 +32,7 @@ declare module "jsonwebtoken" {
         platform: string,
         ip: string,
         token: string
+        super: boolean
     }
 }
 

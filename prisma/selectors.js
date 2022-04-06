@@ -33,6 +33,7 @@ export const libs = /** @type { Prisma.LibArgs } */  {
 export const skills = /** @type { Prisma.SkillArgs } */ {
     select: {
         uuid: true,
+        image: true,
         title: true,
         tag: true
     }
@@ -60,7 +61,7 @@ export const candidates = /** @type { Prisma.CandidateArgs } */ {
         about: true,
         jobs: {
             select: {
-                skills: true
+                skills: skills
             }
         }
     }
@@ -86,6 +87,7 @@ export const user = /** @type { Prisma.UserArgs }*/ {
     select: {
         email: true,
         uuid: true,
+        super: true,
         candidates: candidates
     }
 }

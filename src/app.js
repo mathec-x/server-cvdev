@@ -17,7 +17,7 @@ import ioparser from 'socket.io-msgpack-parser';
 
 export const app = express();
 export const server = createServer(app);
-export const io =  new Server(server, {
+export const io = new Server(server, {
     parser: ioparser, // process.env.NODE_ENV === 'production' ? ioparser : null,
     cors: {
         origin: '*'
@@ -38,11 +38,11 @@ app
     .use(useragent.express())
     .use(authorizeRequest)
     .use(expressSocket(io))
-    .use(nextApi({ 
+    .use(nextApi({
         base: '/api',
         directory: 'src/routes'
-     }))
-    
+    }))
+
 app.use(express.static(resolve(__dirname, '../public')));
 app.get('*', (_, res) => {
     res.sendFile(resolve(__dirname, '../public', 'index.html'));

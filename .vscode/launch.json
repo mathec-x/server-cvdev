@@ -5,10 +5,13 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "type": "pwa-node",
-            "request": "launch",
+            "type": "node",
             "console": "externalTerminal",
+            "internalConsoleOptions": "neverOpen",
             "name": "Server",
+            "request": "launch",
+            "restart": true,
+            "runtimeExecutable": "nodemon",
             "preLaunchTask": "npm: db:upd",
             "postDebugTask": "npm: db:stop",
             "skipFiles": [
@@ -16,6 +19,6 @@
             ],
             "program": "./index.js",
             "__workspaceFolder": "."
-        }
+        },
     ]
 }

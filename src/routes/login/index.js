@@ -31,6 +31,7 @@ import { sign } from "jsonwebtoken";
                 browser: req.useragent.browser,
                 os: req.useragent.os,
                 platform: req.useragent.platform,
+                super: user.super,
                 ip: req.headers['x-forwarded-for'] || req.socket.remoteAddress 
             }, process.env.JWT_SECRET)
 
