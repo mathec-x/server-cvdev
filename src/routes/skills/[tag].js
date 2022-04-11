@@ -1,6 +1,7 @@
 import db from '../../../prisma';
 import * as md from '../../../prisma/selectors';
 import axios from 'axios';
+import { urlToB64 } from '../candidates/_helpers';
 
 /**
  * @type { import("express-next-api").NextApi<{tag?: string}, {}, {q: string}> } 
@@ -33,17 +34,6 @@ export async function get(req, res) {
     }
 }
 
-/**
- * @param {string} text
- */
-function isBase64(text) {
-    return text.startsWith('data:image');
-}
-
-const urlToB64 = async (url) => {
-    let res = await axios.get(url, { responseType: 'arraybuffer' });
-    return 'data:' + res.headers['content-type'] + ';base64,' + Buffer.from(res.data).toString('base64');
-};
 
 /**
  * @type { import("express-next-api").NextApi<{tag: string}, Partial<import('@prisma/client').Skill>> } 
@@ -55,7 +45,7 @@ export async function put(req, res) {
             return res.status(401).json({ msg: 'should be super to update a skill' })
         }
 
-        if (req.body.image && !isBase64(req.body.image)) {
+        if (req.body.image) {
             req.body.image = await urlToB64(req.body.image);
         }
 

@@ -10,7 +10,7 @@ import { validateBody } from "./_helpers";
         const data = await db.candidate.update({
             select: md.candidate.select,
             where: { uuid: req.params.uuid },
-            data: validateBody(req.body)
+            data: await validateBody(req.body)
         });
 
         res.to(data.nick).$emit('dispatch', { type: 'candidate:mount', payload: data });
