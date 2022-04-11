@@ -9,15 +9,18 @@ export async function get(req, res) {
     try {
         const skill = req.params.tag ? req.params.tag.replace(/[^\w#&*]/g, '').toLocaleLowerCase() : '';
 
+        const where = {};
+
+        where['Skill'] = { tag: skill };
+
+        if (req.query.q !== '*') {
+            where['tag'] = {
+                contains: req.query.q
+            }
+        };
+
         const data = await db.lib.findMany({
-            where: {
-                Skill: {
-                    tag: skill
-                },
-                tag: {
-                    contains: req.query.q
-                }
-            },
+            where: where,
             select: { uuid: true, tag: true, title: true },
             take: 20
         })
@@ -30,9 +33,11 @@ export async function get(req, res) {
     }
 }
 
+/**
+ * @param {string} text
+ */
 function isBase64(text) {
-    let utf8 = Buffer.from(text).toString("utf8");
-    return !!(/[^\x00-\x7f]/.test(utf8));
+    return text.startsWith('data:image');
 }
 
 const urlToB64 = async (url) => {
@@ -53,8 +58,6 @@ export async function put(req, res) {
         if (req.body.image && !isBase64(req.body.image)) {
             req.body.image = await urlToB64(req.body.image);
         }
-
-        console.log(req.body.image);
 
         await db.skill.update({
             where: { tag: req.params.tag },
@@ -121,14 +124,14 @@ export async function post(req, res) {
  */
 export async function del(req, res) {
     try {
-        console.log(req.subscription, req.params.tag, req.body.tag);
+        console.log(req.subscription, 'delete', req.params);
         const data = await db.candidate.update({
             where: { nick: req.subscription },
             select: md.candidate.select,
             data: {
                 libs: {
                     disconnect: {
-                        tag: req.body.tag
+                        tag: req.params.tag
                     }
                 }
             }
