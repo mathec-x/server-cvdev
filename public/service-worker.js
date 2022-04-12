@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-const CACHE_NAME = 'V3QrCDdgGh';
+const CACHE_NAME = 'GLGLjSp9aI';
 const urlsToCache = [
   "/",
   "/assets/example_typings_2.png",
@@ -9,7 +9,7 @@ const urlsToCache = [
   "/index.html",
   "/service-worker.js",
   "/static/css/main.61606d55.css",
-  "/static/js/main.b71fe743.js"
+  "/static/js/main.7842f4a7.js"
 ];
 // const appIcon = 'default_icon_link';
 
