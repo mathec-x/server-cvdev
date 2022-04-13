@@ -2,7 +2,6 @@ import express from 'express';
 import useragent from 'express-useragent';
 import cors from 'cors';
 import compression from 'compression';
-import { createServer } from 'http';
 import { nextApi } from 'express-next-api';
 import { resolve } from 'path';
 
@@ -14,8 +13,10 @@ import authorizeRequest from './_middlewares/authorize-request';
 
 import { Server } from 'socket.io';
 import ioparser from 'socket.io-msgpack-parser';
+import createServer from './create-server';
 
 export const app = express();
+
 export const server = createServer(app);
 export const io = new Server(server, {
     parser: ioparser, // process.env.NODE_ENV === 'production' ? ioparser : null,

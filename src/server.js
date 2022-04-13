@@ -7,6 +7,10 @@ import { server } from "./app";
 const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {
   if (process.env.NODE_ENV !== 'production') {
-    console.log('running server at http://localhost:' + PORT, process.env.NODE_ENV);
+    console.log('\nServer', {
+      status: 'running',
+      url: (process.env.HTTPS ? 'https://' : 'http://') + 'localhost:' + PORT,
+      NODE_ENV: process.env.NODE_ENV||'development'
+    }, '\n');
   }
 });
