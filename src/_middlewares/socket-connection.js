@@ -26,19 +26,26 @@ const socketConnection = (io) => (socket) => {
     }
 
     socket.on('subscribe', (nick) => {
+        socket.emit('loading', true);
         db.candidate.findFirst({
             where: { nick },
             select: md.candidate.select
         }).then((candidate) => {
-            console.log('subscribe to', nick);
-            socket.join(candidate.nick);
-            socket.emit('subscribe', candidate.nick)
-            socket.emit('dispatch', { type: 'candidate:mount', payload: candidate });
-
-        }).catch(() => {
+            if(candidate){
+                console.log('subscribe to', nick);
+                socket.join(candidate.nick);
+                socket.emit('subscribe', candidate.nick)
+                socket.emit('dispatch', { type: 'candidate:mount', payload: candidate });
+            } else {
+                throw "candidate not found";
+            }
+        }).catch((error) => {
+            console.log(error)
+            socket.emit('candidate:not-found');
             socket.emit('dispatch', { type: 'candidate:mount', payload: {} });
         }).finally(async () => {
             io.in(nick).emit('subscriptions', (await io.in(nick).allSockets()).size);
+            socket.emit('loading', false);
         })
     })
 
@@ -47,6 +54,7 @@ const socketConnection = (io) => (socket) => {
         socket.emit('unsubscribe');
         // socket.emit('dispatch', { type: 'candidate:mount', payload: {} });
         socket.leave(nick);
+        socket.emit('dispatch', { type: 'candidate:mount', payload: {} });
         io.in(nick).emit('subscriptions', (await io.in(nick).allSockets()).size);
     })
 }
