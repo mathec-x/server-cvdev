@@ -27,11 +27,16 @@ const socketConnection = (io) => (socket) => {
 
     socket.on('subscribe', (nick) => {
         socket.emit('loading', true);
+        const where = { nick };
+        if(!nick.startsWith("@")){
+            where.user = { uuid: socket.user ? socket.user.uuid : '' }
+        }
         db.candidate.findFirst({
-            where: { nick },
+            where,
             select: md.candidate.select
         }).then((candidate) => {
             if(candidate){
+                console.log(nick, candidate, socket.user);
                 console.log('subscribe to', nick);
                 socket.join(candidate.nick);
                 socket.emit('subscribe', candidate.nick)
