@@ -36,7 +36,7 @@ const socketConnection = (io) => (socket) => {
             select: md.candidate.select
         }).then((candidate) => {
             if(candidate){
-                console.log(nick, candidate, socket.user);
+                // console.log(nick, candidate, socket.user);
                 console.log('subscribe to', nick);
                 socket.join(candidate.nick);
                 socket.emit('subscribe', candidate.nick)
