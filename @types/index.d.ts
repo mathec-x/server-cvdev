@@ -6,7 +6,7 @@ import { JwtPayload } from 'jsonwebtoken'
 type Names = 'user' | 'candidate' | 'cadidates' | 'skills';
 type Types = `${Names}:mount` | `${Names}:merge` | `${Names}:create` | `${Names}:will:update` | `${Names}:update` | `${Names}:will:delete` | `${Names}:delete`;
 
-type DefaultEventsMap = "dispatch" | "unsubscribe" | "subscribe" |  "refresh";
+type DefaultEventsMap = "dispatch" | "unsubscribe" | "subscribe" |  "refresh" | "loading";
 type SocketUserResponse = {
     id: string,
     user: User,

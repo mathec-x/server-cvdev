@@ -25,12 +25,38 @@ export const urlToB64 = async (/** @type {string} */ url) => {
     
 };
 
+export const getFavicon = async (/** @type {string} */ url) => {
+    // https://s2.googleusercontent.com/s2/favicons?domain=
+    try {
+        let res = await axios.get('https://s2.googleusercontent.com/s2/favicons?domain='+url, { responseType: 'arraybuffer' });
+        return 'data:' + res.headers['content-type'] + ';base64,' + Buffer.from(res.data).toString('base64');
+        
+    } catch (error) {
+        console.log(error);
+        return undefined;
+    }
+}
 
+/**
+ * @returns { Promise<import('@prisma/client').Prisma.CandidateUpdateInput> }
+ */
 export const validateBody = async (req) => {
+    if(req.link){
+        const icon = await getFavicon(req.link);
+        if(!req.links){
+            req.links = {}
+        }
+        if(req.link && icon){
+            req.links[req.link] = icon;
+        }
+    }
     if(req.image){
         req.image = await urlToB64(req.image);
     }
+
+    console.log(req.links);
     return {
+        links: req.links || undefined,
         image: req.image || undefined,
         name: req.name || undefined,
         nick: req.nick || undefined,

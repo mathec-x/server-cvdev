@@ -1,5 +1,14 @@
 import db from "../../prisma";
 
+const white_list_paths = [
+    '/api/login'
+]
+
+const unauthorized_methods = [
+    'PUT',
+    'POST',
+    "DELETE"
+]
 
 /**
  *@param {import("express").Request} req 
@@ -7,15 +16,15 @@ import db from "../../prisma";
  *@param {import("express").NextFunction} next 
  */
 const authorizeRequest = async (req, res, next) => {
-
-    if(['PUT', 'POST', "DELETE"].includes(req.method) && req.user && req.subscription ){
-        if(!await db.candidate.findFirst({
+    console.log(req.path)
+    if (unauthorized_methods.includes(req.method) && !white_list_paths.includes(req.path) ) {
+        if (!req.user || !await db.candidate.findFirst({
             where: {
-                user: {uuid: req.user.uuid},
+                user: { uuid: req.user.uuid },
                 nick: req.subscription
             }
-        })){
-
+        })) {
+            console.log('unauthorized', req.path, req.socketId, req.method, 401)
             return res.sendStatus(401)
         }
     }

@@ -75,6 +75,7 @@ export const candidate = /** @type { Prisma.CandidateArgs } */ {
         nick: true,
         uuid: true,
         about: true,
+        links: true,
         address: address,
         contacts: contacts,
         jobs: jobs,
