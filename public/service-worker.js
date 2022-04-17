@@ -1,7 +1,8 @@
 /* eslint-disable no-restricted-globals */
-const CACHE_NAME = 'XdZTW7gNQi';
+const CACHE_NAME = 'O8Z26cfuov';
 const urlsToCache = [
   "/",
+  "/assets/background.png",
   "/assets/example_typings_2.png",
   "/assets/example_typings.png",
   "/icons/android-icon-144x144.png",
@@ -56,6 +57,8 @@ const urlsToCache = [
   "/icons/ios/76.png",
   "/icons/ios/80.png",
   "/icons/ios/87.png",
+  "/icons/logo192.png",
+  "/icons/logo512.png",
   "/icons/ms-icon-144x144.png",
   "/icons/ms-icon-150x150.png",
   "/icons/ms-icon-310x310.png",
@@ -143,8 +146,8 @@ const urlsToCache = [
   "/icons/windows11/Wide310x150Logo.scale-400.png",
   "/index.html",
   "/service-worker.js",
-  "/static/css/main.61606d55.css",
-  "/static/js/main.0a7a983d.js"
+  "/static/css/main.0cc101dc.css",
+  "/static/js/main.922de20f.js"
 ];
 // const appIcon = 'default_icon_link';
 
