@@ -15,7 +15,7 @@ model User {
   uuid       String      @unique @default(uuid())
   email      String      @unique
   password   String
-  super      Boolean? @default(false)
+  super      Boolean?    @default(false)
   candidates Candidate[]
 }
 
@@ -36,14 +36,15 @@ model Address {
 }
 
 model Candidate {
-  id    Int    @id @default(autoincrement())
-  uuid  String @unique @default(uuid())
-  nick  String @unique
-  email String
-  name  String
-  image String
-  about String?
-  links Json @default("{}")
+  id          Int     @id @default(autoincrement())
+  uuid        String  @unique @default(uuid())
+  nick        String  @unique
+  email       String
+  name        String
+  image       String
+  about       String?
+  addressLine String?
+  links       Json    @default("{}")
 
   user      User?     @relation(fields: [userId], references: [id])
   userId    Int?
@@ -60,6 +61,7 @@ model Job {
   company     String?
   occupation  String?
   description String?
+  image       String?
   site        String?
   begin       DateTime
   finish      DateTime?

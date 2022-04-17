@@ -45,6 +45,8 @@ export const jobs = /** @type { Prisma.JobArgs } */ {
         occupation: true,
         begin: true,
         finish: true,
+        image: true,
+        site: true,
         description: true,
         company: true,
         skills: skills
@@ -76,6 +78,7 @@ export const candidate = /** @type { Prisma.CandidateArgs } */ {
         uuid: true,
         about: true,
         links: true,
+        addressLine: true,
         address: address,
         contacts: contacts,
         jobs: jobs,

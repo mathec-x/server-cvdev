@@ -62,5 +62,6 @@ export const validateBody = async (req) => {
         nick: req.nick || undefined,
         email: req.email || undefined,
         about: req.about || undefined,
+        addressLine: req.addressLine || undefined,
     }
 }
