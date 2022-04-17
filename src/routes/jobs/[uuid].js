@@ -9,7 +9,7 @@ export const put = async (req, res) => {
     try {
 
         let { begin, finish, company, description, occupation, site } = req.body;
-        let image = undefined;
+        let image = null;
 
         if(site){
             image = await getFavicon(site) || null
