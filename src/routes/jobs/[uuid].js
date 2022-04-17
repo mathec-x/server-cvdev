@@ -15,7 +15,7 @@ export const put = async (req, res) => {
             image = await getFavicon(site) || null
         }
 
-        begin = begin.toDate();
+        begin = new Date(begin.split('-'));
 
         /**
          * Prisma Client differentiates between null and undefined:
@@ -25,7 +25,7 @@ export const put = async (req, res) => {
         if (typeof finish !== undefined && String(finish) === '') {
             finish = null;
         } else {
-            finish = finish.toDate();
+            finish = new Date(finish.split('-'));
         }
 
         // console.log({ begin, finish, company, description, occupation, image, site });

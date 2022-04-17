@@ -54,8 +54,13 @@ export const validateBody = async (req) => {
         req.image = await urlToB64(req.image);
     }
 
-    console.log(req.links);
+    if(req.birthday){
+        req.birthday = new Date(req.birthday.split('-'));
+    }
+
+    console.log(req);
     return {
+        birthday: req.birthday || undefined,
         links: req.links || undefined,
         image: req.image || undefined,
         name: req.name || undefined,

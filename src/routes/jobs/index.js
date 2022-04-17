@@ -8,8 +8,13 @@ export async function post(req, res) {
     try {
         let { begin, finish, company, description, occupation  } = req.body;
 
-        begin = begin.toDate();
-        finish = finish.toDate();
+        begin = new Date(begin.split('-'));
+
+        if(finish){
+            finish = new Date(finish.split('-'));
+        } else {
+            finish = undefined;
+        }
         
         const data =  await db.candidate.update({
             where: { nick: req.subscription },

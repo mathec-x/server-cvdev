@@ -72,6 +72,7 @@ export const candidates = /** @type { Prisma.CandidateArgs } */ {
 export const candidate = /** @type { Prisma.CandidateArgs } */ {
     select: {
         email: true,
+        birthday: true,
         image: true,
         name: true,
         nick: true,
