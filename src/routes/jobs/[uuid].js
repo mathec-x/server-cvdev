@@ -1,5 +1,6 @@
 import db from '../../../prisma';
 import { candidate } from '../../../prisma/selectors';
+import { getFavicon } from '../candidates/_helpers';
 
 /**
  * @type { import("express-next-api").NextApi<{uuid: string}, import('@prisma/client').Job> }
@@ -7,7 +8,12 @@ import { candidate } from '../../../prisma/selectors';
 export const put = async (req, res) => {
     try {
 
-        let { begin, finish, company, description, occupation } = req.body;
+        let { begin, finish, company, description, occupation, site } = req.body;
+        let image = undefined;
+
+        if(site){
+            image = await getFavicon(site) || null
+        }
 
         begin = begin.toDate();
 
@@ -22,7 +28,7 @@ export const put = async (req, res) => {
             finish = finish.toDate();
         }
 
-        // console.log({ begin, finish, company, description, occupation });
+        // console.log({ begin, finish, company, description, occupation, image, site });
         const data = await db.candidate.update({
             where: { nick: req.subscription },
             select: candidate.select,
@@ -30,7 +36,7 @@ export const put = async (req, res) => {
                 jobs: {
                     update: {
                         where: { uuid: req.params.uuid },
-                        data: { begin, finish, company, description, occupation }
+                        data: { begin, finish, company, description, occupation, image, site }
                     }
                 }
             }
