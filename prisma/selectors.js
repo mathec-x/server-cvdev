@@ -69,6 +69,18 @@ export const candidates = /** @type { Prisma.CandidateArgs } */ {
     }
 }
 
+export const education = /** @type { Prisma.EducationArgs }*/ {
+    select: {
+        uuid: true,
+        institution: true,
+        course: true,
+        begin: true,
+        finish: true,
+        image: true,
+        site: true
+    }
+}
+
 export const candidate = /** @type { Prisma.CandidateArgs } */ {
     select: {
         email: true,
@@ -83,10 +95,10 @@ export const candidate = /** @type { Prisma.CandidateArgs } */ {
         address: address,
         contacts: contacts,
         jobs: jobs,
-        libs: libs
+        libs: libs,
+        educations: education
     }
 }
-
 
 export const user = /** @type { Prisma.UserArgs }*/ {
     select: {

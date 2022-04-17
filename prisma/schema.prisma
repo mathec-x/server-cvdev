@@ -35,25 +35,39 @@ model Address {
   @@unique([cep, number])
 }
 
+model Education {
+  id          Int        @id @default(autoincrement())
+  uuid        String     @unique @default(uuid())
+  institution String
+  course      String
+  image       String?
+  site        String?
+  begin       DateTime
+  finish      DateTime?
+  Candidate   Candidate? @relation(fields: [candidateId], references: [id])
+  candidateId Int?
+}
+
 model Candidate {
-  id          Int     @id @default(autoincrement())
-  uuid        String  @unique @default(uuid())
-  nick        String  @unique
+  id          Int       @id @default(autoincrement())
+  uuid        String    @unique @default(uuid())
+  nick        String    @unique
   email       String
   name        String
   image       String
   about       String?
   birthday    DateTime?
   addressLine String?
-  links       Json    @default("{}")
+  links       Json      @default("{}")
 
-  user      User?     @relation(fields: [userId], references: [id])
-  userId    Int?
-  address   Address?  @relation(fields: [addressId], references: [id])
-  addressId Int?
-  contacts  Contact[]
-  jobs      Job[]
-  libs      Lib[]
+  user       User?       @relation(fields: [userId], references: [id])
+  userId     Int?
+  address    Address?    @relation(fields: [addressId], references: [id])
+  addressId  Int?
+  contacts   Contact[]
+  jobs       Job[]
+  libs       Lib[]
+  educations Education[]
 }
 
 model Job {
