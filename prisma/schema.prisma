@@ -43,6 +43,7 @@ model Candidate {
   name        String
   image       String
   about       String?
+  birthday    DateTime?
   addressLine String?
   links       Json    @default("{}")
 
