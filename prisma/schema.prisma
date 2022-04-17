@@ -68,6 +68,16 @@ model Candidate {
   jobs       Job[]
   libs       Lib[]
   educations Education[]
+  languages  Language[]
+}
+
+model Language {
+  id          Int        @id @default(autoincrement())
+  uuid        String     @unique @default(uuid())
+  title       String
+  level       Int
+  Candidate   Candidate? @relation(fields: [candidateId], references: [id])
+  candidateId Int?
 }
 
 model Job {
