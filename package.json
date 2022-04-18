@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "deploy": "git push heroku",
+    "deploy": "npm run web:builb && git add public && git commit -m 'feat: release features' && git push heroku",
     "heroku:logs": "heroku logs --tail -a webcvdev",
     "dev": "npm run db:up & npm run development",
     "dev:all": "npm run db:up & npm run development & npm run web",
