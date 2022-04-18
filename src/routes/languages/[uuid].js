@@ -1,6 +1,5 @@
 import db from '../../../prisma';
 import { candidate } from '../../../prisma/selectors';
-import { getFavicon } from '../candidates/_helpers';
 
 /**
  * @type { import("express-next-api").NextApi<{uuid: string}, import('@prisma/client').Language> }
@@ -14,7 +13,7 @@ export const put = async (req, res) => {
             where: { nick: req.subscription },
             select: candidate.select,
             data: {
-                languanges: {
+                languages: {
                     update: {
                         where: { uuid: req.params.uuid },
                         data: { title, level }
@@ -39,7 +38,7 @@ export const del = async (req, res) => {
         const data = await db.candidate.update({
             where: { nick: req.subscription },
             select: candidate.select,
-            data: { languanges: { delete: { uuid: req.params.uuid } } }
+            data: { languages: { delete: { uuid: req.params.uuid } } }
         });
         return res.to(req.subscription).dispatch('candidate:mount', data);
 

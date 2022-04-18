@@ -6,11 +6,11 @@ import { candidate } from '../../../prisma/selectors';
  */
 export async function post(req, res) {
     try {
-        let { title, level } = req.body;
+        let { title, level = 0 } = req.body;
         const data =  await db.candidate.update({
             where: { nick: req.subscription },
             select: candidate.select,
-            data: { languanges: { create: { title, level }}}
+            data: { languages: { create: { title, level }}}
         });
 
         return res.to(req.subscription).dispatch('candidate:mount', data);

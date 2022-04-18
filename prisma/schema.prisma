@@ -75,7 +75,7 @@ model Language {
   id          Int        @id @default(autoincrement())
   uuid        String     @unique @default(uuid())
   title       String
-  level       Int
+  level       Int @default(0)
   Candidate   Candidate? @relation(fields: [candidateId], references: [id])
   candidateId Int?
 }
