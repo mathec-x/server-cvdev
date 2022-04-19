@@ -26,7 +26,7 @@ const socketConnection = (io) => (socket) => {
     }
 
     socket.on('subscribe', (nick) => {
-        socket.emit('loading', true);
+
         const where = { nick };
         if(!nick.startsWith("@")){
             where.user = { uuid: socket.user ? socket.user.uuid : '' }
@@ -46,11 +46,11 @@ const socketConnection = (io) => (socket) => {
             }
         }).catch((error) => {
             console.log(error)
-            socket.emit('candidate:not-found');
-            socket.emit('dispatch', { type: 'candidate:mount', payload: {} });
+            // socket.emit('candidate:not-found');
+            socket.emit('dispatch', { type: 'candidate:mount', payload: { notFound: true } });
         }).finally(async () => {
             io.in(nick).emit('subscriptions', (await io.in(nick).allSockets()).size);
-            socket.emit('loading', false);
+
         })
     })
 
