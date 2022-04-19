@@ -1,10 +1,13 @@
 /* eslint-disable no-restricted-globals */
-const CACHE_NAME = 'aMDsmlFbty';
+const CACHE_NAME = 'vcfHPFO6qz';
 const urlsToCache = [
   "/",
   "/assets/background.png",
   "/assets/example_typings_2.png",
   "/assets/example_typings.png",
+  "/assets/screenshot-1-.png",
+  "/assets/screenshot-2.png",
+  "/assets/screenshot-3.png",
   "/icons/android/android-launchericon-144-144.png",
   "/icons/android/android-launchericon-192-192.png",
   "/icons/android/android-launchericon-48-48.png",
@@ -127,7 +130,7 @@ const urlsToCache = [
   "/index.html",
   "/service-worker.js",
   "/static/css/main.0e9ccb94.css",
-  "/static/js/main.11adfa48.js"
+  "/static/js/main.dd18b101.js"
 ];
 // const appIcon = 'default_icon_link';
 
