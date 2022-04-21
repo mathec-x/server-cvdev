@@ -18,7 +18,6 @@ import { candidates } from "../../../prisma/selectors";
         return res.sendStatus(201);
 
     } catch (error) {
-        console.log(error)
         res.sendStatus(400);
     }
 }
