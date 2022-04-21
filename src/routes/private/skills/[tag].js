@@ -1,5 +1,5 @@
-import db from '../../../prisma';
-import * as md from '../../../prisma/selectors';
+import db from '../../../../prisma';
+import * as md from '../../../../prisma/selectors';
 import axios from 'axios';
 import { urlToB64 } from '../candidates/_helpers';
 

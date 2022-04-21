@@ -2,4 +2,4 @@
 // eslint-disable-next-line no-global-assign
 require = require("esm")(module);
 console.clear();
-module.exports = require("./src/server.js");
+module.exports = require("./main.js");

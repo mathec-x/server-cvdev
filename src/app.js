@@ -37,12 +37,16 @@ app
     .use(express.urlencoded({ extended: true }))
     .use(express.json({ type: ['application/json', 'text/plain'] }))
     .use(useragent.express())
-    .use(authorizeRequest)
     .use(expressSocket(io))
     .use(nextApi({
         base: '/api',
-        directory: 'src/routes'
+        directory: 'src/routes/public'
     }))
+    .use(authorizeRequest, nextApi({
+        base: '/api',
+        directory: 'src/routes/private'
+    }))
+    
 
 app.use(express.static(resolve(__dirname, '../public')));
 app.get('*', (_, res) => {

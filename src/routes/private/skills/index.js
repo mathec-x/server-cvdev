@@ -1,5 +1,5 @@
-import db from '../../../prisma';
-import * as md from '../../../prisma/selectors';
+import db from '../../../../prisma';
+import * as md from '../../../../prisma/selectors';
 
 /**
  * @type { import("express-next-api").NextApi<{tag?: string}, {}, {q: string}> } 

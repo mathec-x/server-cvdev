@@ -1,5 +1,5 @@
-import db from "../../../prisma";
-import { candidates } from "../../../prisma/selectors";
+import db from "../../../../prisma";
+import { candidates } from "../../../../prisma/selectors";
 
 /**
  * @type { import("express-next-api").NextApi<{}, { email: string, image: string, name:string, nick:string }> } 

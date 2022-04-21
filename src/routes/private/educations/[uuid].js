@@ -1,5 +1,5 @@
-import db from '../../../prisma';
-import { candidate } from '../../../prisma/selectors';
+import db from '../../../../prisma';
+import { candidate } from '../../../../prisma/selectors';
 import { getFavicon } from '../candidates/_helpers';
 
 /**
@@ -11,10 +11,11 @@ export const put = async (req, res) => {
         let { begin, finish, institution, course, site } = req.body;
         let image = null;
 
-        if(site){
+        if (site) {
             image = await getFavicon(site) || null
         }
 
+        // @ts-ignore
         begin = new Date(begin.split('-'));
 
         /**
@@ -25,6 +26,7 @@ export const put = async (req, res) => {
         if (typeof finish !== undefined && String(finish) === '') {
             finish = null;
         } else {
+            // @ts-ignore
             finish = new Date(finish.split('-'));
         }
 

@@ -1,5 +1,5 @@
-import db from '../../../prisma';
-import { candidate } from '../../../prisma/selectors';
+import db from '../../../../prisma';
+import { candidate } from '../../../../prisma/selectors';
 
 /**
  * @type { import("express-next-api").NextApi<{uuid: string}, import('@prisma/client').Language> }

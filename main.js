@@ -2,7 +2,7 @@ import 'prototypes-array';
 import 'prototypes-string';
 require('dotenv').config({ path: '../.env' });
 
-import { server } from "./app";
+import { server } from "./src/app";
 
 const PORT = process.env.PORT || 3001;
 server.listen(PORT, () => {

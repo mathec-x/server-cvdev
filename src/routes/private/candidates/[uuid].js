@@ -1,5 +1,5 @@
-import db from "../../../prisma";
-import * as md from "../../../prisma/selectors";
+import db from "../../../../prisma";
+import * as md from "../../../../prisma/selectors";
 import { validateBody } from "./_helpers";
 
 /**
@@ -10,7 +10,7 @@ export async function put(req, res) {
     try {
         const data = await db.candidate.update({
             select: md.candidate.select,
-            where: { uuid: req.params.uuid },
+            where: { nick: req.subscription },
             data: await validateBody(req.body)
         });
 
@@ -32,7 +32,7 @@ export async function put(req, res) {
 export async function del(req, res) {
     res.$emit('loading', true)
     try {
-        const data = await db.candidate.delete({ where: { uuid: req.params.uuid } });
+        const data = await db.candidate.delete({ where: { nick: req.subscription } });
         res.to(data.nick).$emit('dispatch', { type: 'candidate:delete', payload: data });
         res.to(req.user.uuid).$emit('dispatch', { type: 'candidates:update', payload: data });
         res.sendStatus(200);
