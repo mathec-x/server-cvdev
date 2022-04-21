@@ -32,9 +32,10 @@ export async function put(req, res) {
 export async function del(req, res) {
     res.$emit('loading', true)
     try {
+
         const data = await db.candidate.delete({ where: { nick: req.subscription } });
-        res.to(data.nick).$emit('dispatch', { type: 'candidate:delete', payload: data });
-        res.to(req.user.uuid).$emit('dispatch', { type: 'candidates:update', payload: data });
+        res.to(req.user.uuid).$emit('dispatch', { type: 'candidates:delete', payload: data });
+        // res.to(req.user.uuid).$emit('dispatch', { type: 'candidates:update', payload: data });
         res.sendStatus(200);
     } catch (error) {
         console.log(error);
