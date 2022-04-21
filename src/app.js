@@ -31,6 +31,7 @@ io.use(handshakeToken).on('connection', (socket) => {
 });
 
 app
+    .use(express.static("public"))
     .use(cors())
     .use(accessToken)
     .use(compression())
@@ -47,8 +48,6 @@ app
         directory: 'src/routes/private'
     }))
     
-
-app.use(express.static(resolve(__dirname, '../public')));
-app.get('*', (_, res) => {
+app.get('*', (req, res) => {
     res.sendFile(resolve(__dirname, '../public', 'index.html'));
 });

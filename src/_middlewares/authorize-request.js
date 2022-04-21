@@ -13,9 +13,8 @@ const unauthorized_methods = [
  */
 const authorizeRequest = async (req, res, next) => {
     try {
-        console.log({ path: req.path, subscription: req.subscription })
-
         if (unauthorized_methods.includes(req.method)) {
+            console.log({ path: req.path, subscription: req.subscription })
             const allowNoSubscriptionsPost = (req.path === '/api/candidates' && req.method === 'POST');
 
             /** @type {import('@prisma/client').Prisma.UserFindFirstArgs } */
@@ -37,14 +36,14 @@ const authorizeRequest = async (req, res, next) => {
             console.log({ match: !!match });
 
             if (!req.user || !match) {
-                console.log('unauthorized', req.socketId, req.method, 401)
+                console.log('[unauthorized in middleware]', req.socketId, req.method, 401)
                 return res.sendStatus(401);
             }
         }
 
         next();
     } catch (error) {
-        console.log('unauthorized', req.socketId, req.method, 403)
+        console.log('[unauthorized in middleware]', req.socketId, req.method, 403)
         return res.sendStatus(403)
     }
 };
