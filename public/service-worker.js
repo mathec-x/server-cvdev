@@ -1,14 +1,16 @@
 /* eslint-disable no-restricted-globals */
-const CACHE_NAME = '7BT3QrILkA';
+const CACHE_NAME = 'ZMxBKYn7IR';
 const urlsToCache = [
   "/",
   "/assets/background.old.png",
   "/assets/background.png",
   "/assets/example_typings_2.png",
   "/assets/example_typings.png",
-  "/assets/screenshot-1-.png",
+  "/assets/screenshot-0.png",
+  "/assets/screenshot-1.png",
   "/assets/screenshot-2.png",
   "/assets/screenshot-3.png",
+  "/assets/screenshot-4.png",
   "/icons/android/android-launchericon-144-144.png",
   "/icons/android/android-launchericon-192-192.png",
   "/icons/android/android-launchericon-48-48.png",
