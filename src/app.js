@@ -3,7 +3,7 @@ import useragent from 'express-useragent';
 import cors from 'cors';
 import compression from 'compression';
 import { nextApi } from 'express-next-api';
-import { resolve } from 'path';
+import pt from 'path';
 
 import expressSocket from './_middlewares/express-socket';
 import accessToken from './_middlewares/access-token';
@@ -48,6 +48,6 @@ app
         directory: 'src/routes/private'
     }))
     
-app.get('*', (req, res) => {
-    res.sendFile(resolve(__dirname, '../public', 'index.html'));
+app.get('*', (_, res) => {
+    res.sendFile(pt.resolve('public/index.html'));
 });
