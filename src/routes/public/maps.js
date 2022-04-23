@@ -1,4 +1,4 @@
-import { reverse, geocode } from "../../../services/Geocoder";
+import { reverse, geocode } from "../../services/Geocoder";
 
 const ck_lat = /^(-?[1-8]?\d(?:\.\d{1,18})?|90(?:\.0{1,18})?)$/;
 

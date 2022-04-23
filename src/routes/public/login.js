@@ -1,4 +1,4 @@
-import db from "../../../../prisma";
+import db from "../../../prisma";
 import { hashSync, compareSync } from 'bcrypt';
 import { sign } from "jsonwebtoken";
 /**
