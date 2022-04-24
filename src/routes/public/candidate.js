@@ -5,7 +5,8 @@ import db from "../../../prisma";
  */
 export async function get(req, res) {
     try {
-        if (await db.candidate.findFirst({ where: req.query })) {
+        const match = await db.candidate.findFirst({ where: req.query });
+        if (match) {
             return res.sendStatus(200);
         };
     } catch (error) {

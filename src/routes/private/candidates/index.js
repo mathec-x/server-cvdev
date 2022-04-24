@@ -1,15 +1,20 @@
 import db from "../../../../prisma";
 import { candidates } from "../../../../prisma/selectors";
+import { CandidateErrors, validateBody } from "./_helpers";
 
 /**
  * @type { import("express-next-api").NextApi<{}, { email: string, image: string, name:string, nick:string }> } 
  */
  export async function  post(req, res) {
     try {
+        const {email, image, name, nick} = await validateBody(req.body);
         const data = await db.candidate.create({
             select: candidates.select,
             data: {
-                ...req.body,
+                email: String(email) || undefined, 
+                image: String(image) || undefined, 
+                name: String(name) || undefined, 
+                nick: String(nick) || undefined,
                 user: {connect: { uuid: req.user.uuid }}
             },
         });
@@ -18,6 +23,7 @@ import { candidates } from "../../../../prisma/selectors";
         return res.sendStatus(201);
 
     } catch (error) {
-        res.sendStatus(400);
+        console.log(error);
+        res.status(400).send(CandidateErrors(error));
     }
 }

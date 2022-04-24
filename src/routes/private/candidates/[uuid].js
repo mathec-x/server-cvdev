@@ -1,6 +1,7 @@
+import { PrismaClientKnownRequestError } from "@prisma/client/runtime";
 import db from "../../../../prisma";
 import * as md from "../../../../prisma/selectors";
-import { validateBody } from "./_helpers";
+import { CandidateErrors, validateBody } from "./_helpers";
 
 /**
  * @type { import("express-next-api").NextApi<{uuid: string}, import('@prisma/client').Prisma.CandidateUpdateArgs['data'] > } 
@@ -8,10 +9,11 @@ import { validateBody } from "./_helpers";
 export async function put(req, res) {
     res.$emit('loading', true)
     try {
+        const body = await validateBody(req.body);
         const data = await db.candidate.update({
             select: md.candidate.select,
             where: { nick: req.subscription },
-            data: await validateBody(req.body)
+            data: body
         });
 
         res.to(data.nick).$emit('dispatch', { type: 'candidate:mount', payload: data });
@@ -19,8 +21,7 @@ export async function put(req, res) {
         res.sendStatus(200);
 
     } catch (error) {
-        console.log(error);
-        res.sendStatus(400);
+        res.status(400).send(CandidateErrors(error));
     }
 
     res.$emit('loading', false)

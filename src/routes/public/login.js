@@ -7,6 +7,10 @@ import { sign } from "jsonwebtoken";
  export async function  post(req, res) {
     let status = 200;
     try {
+        if(!req.body.login.TestMail()){
+            throw "Invalid email";
+        }
+
 
         let user = await db.user.findFirst({
             where: { email: req.body.login },
@@ -46,7 +50,12 @@ import { sign } from "jsonwebtoken";
 
         return res.sendStatus(401);
     } catch (error) {
+        let status = 400;
+        if(error === 'Invalid email'){
+            status = 401;
+        }
+
         console.log(error)
-        res.sendStatus(400);
+        res.sendStatus(401);
     }
 }
