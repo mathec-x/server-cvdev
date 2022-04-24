@@ -26,6 +26,7 @@ const socketConnection = (io) => (socket) => {
     }
 
     socket.on('subscribe', (nick) => {
+        socket.emit('dispatch', { type: 'candidate:mount', payload: {} });
 
         const where = { nick };
         if(!nick.startsWith("@")){
