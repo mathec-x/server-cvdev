@@ -101,7 +101,7 @@ export async function post(req, res) {
             ...md.candidate
         });
 
-        return res.dispatch('candidate:mount', candidate);
+        return res.to(req.subscription).dispatch('candidate:mount', candidate);
 
     } catch (error) {
         console.log(error);
@@ -126,7 +126,7 @@ export async function del(req, res) {
                 }
             }
         });
-        return res.dispatch('candidate:mount', data);
+        return res.to(req.subscription).dispatch('candidate:mount', data);
 
     } catch (error) {
         console.log(error);
