@@ -7,6 +7,7 @@ import * as md from '../../prisma/selectors';
 const socketConnection = (io) => (socket) => {
     if (socket.user) {
         socket.join(socket.user.uuid);
+        socket.emit('dispatch', { type: 'candidate:mount', payload: {} });
         try {
             db.user.findFirst({
                 where: { uuid: socket.user.uuid },
@@ -26,7 +27,7 @@ const socketConnection = (io) => (socket) => {
     }
 
     socket.on('subscribe', (nick) => {
-        socket.emit('dispatch', { type: 'candidate:mount', payload: {} });
+        // socket.emit('dispatch', { type: 'candidate:mount', payload: {} });
 
         const where = { nick };
         if(!nick.startsWith("@")){
