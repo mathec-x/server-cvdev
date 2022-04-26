@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-const CACHE_NAME = 'Szk9qAGu3c';
+const CACHE_NAME = 'xy1dcEoJen';
 const urlsToCache = [
   "/",
   "/assets/background.old.png",
@@ -134,13 +134,13 @@ const urlsToCache = [
   "/service-worker.js",
   "/static/css/main.6cb3b982.css",
   "/static/js/210.481b3b76.chunk.js",
-  "/static/js/411.4b2baeec.chunk.js",
+  "/static/js/411.1bc60581.chunk.js",
   "/static/js/47.ad0335d4.chunk.js",
   "/static/js/498.25a96330.chunk.js",
   "/static/js/915.aafb24af.chunk.js",
   "/static/js/926.8d04b9db.chunk.js",
   "/static/js/975.c5f37235.chunk.js",
-  "/static/js/main.ec070e36.js"
+  "/static/js/main.7727b888.js"
 ];
 // const appIcon = 'default_icon_link';
 
