@@ -1,5 +1,5 @@
 /* eslint-disable no-restricted-globals */
-const CACHE_NAME = 'hkgUXD3sLE';
+const CACHE_NAME = '4uBi0DOFzd';
 const urlsToCache = [
   "/",
   "/assets/background.old.png",
