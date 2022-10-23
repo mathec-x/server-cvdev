@@ -16,6 +16,8 @@ const socketConnection = (io) => (socket) => {
                 console.log('socket', socket.id, user.email);
                 socket.emit('dispatch', { type: 'user:mount', payload: { ...user, token: socket.user.token } });
                 socket.emit('dispatch', { type: 'candidates:mount', payload: candidates });
+            }).catch( (err) => {
+                console.log(err)
             });
 
         } catch (error) {

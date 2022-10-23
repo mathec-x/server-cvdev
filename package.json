@@ -6,6 +6,7 @@
   "scripts": {
     "deploy": "npm run web:builb && git add public && git commit -m 'feat: release features' && git push heroku",
     "heroku:logs": "heroku logs --tail -a webcvdev",
+    "ts:dev": "nodemon --watch 'prisma/**' --ext 'ts,json' --ignore 'prisma/**/*.spec.ts' --exec 'ts-node prisma/index.ts'",
     "dev": "npm run db:up & npm run development",
     "dev:all": "npm run db:up & npm run development & npm run web",
     "web": "cd ../web && npm run start",
@@ -53,6 +54,11 @@
   },
   "devDependencies": {
     "@types/server": "file:@types",
-    "prisma": "^3.10.0"
+    "prisma": "^3.10.0",
+    "rollup": "^2.74.1",
+    "rollup-plugin-bundle-imports": "^1.5.1",
+    "rollup-plugin-dts": "^4.2.1",
+    "rollup-plugin-typescript2": "^0.31.2",
+    "ts-node": "^10.8.0"
   }
 }

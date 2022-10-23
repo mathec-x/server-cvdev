@@ -15,7 +15,7 @@ export async function put(req, res) {
             where: { nick: req.subscription },
             data: body
         });
-
+        
         res.to(data.nick).$emit('dispatch', { type: 'candidate:mount', payload: data });
         res.to(req.user.uuid).$emit('dispatch', { type: 'candidates:update', payload: data });
         res.sendStatus(200);
