@@ -42,6 +42,7 @@ export async function put(req, res) {
     try {
 
         if (!req.user.super) {
+            console.log(req.user.uuid, 'is not super', req.user.super);
             return res.status(401).json({ msg: 'should be super to update a skill' })
         }
 

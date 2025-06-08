@@ -17,6 +17,7 @@ function isBase64(/** @type {string} */ text) {
 }
 
 export const urlToB64 = async (/** @type {string} */ url) => {
+    console.log('urlToB64', url);
 
     if (!Boolean(url)) {
         return undefined;
@@ -31,7 +32,7 @@ export const urlToB64 = async (/** @type {string} */ url) => {
         return 'data:' + res.headers['content-type'] + ';base64,' + Buffer.from(res.data).toString('base64');
 
     } catch (error) {
-        console.log(error);
+        console.log(error.message);
         return undefined;
     }
 
@@ -44,7 +45,7 @@ export const getFavicon = async (/** @type {string} */ url) => {
         return 'data:' + res.headers['content-type'] + ';base64,' + Buffer.from(res.data).toString('base64');
 
     } catch (error) {
-        console.log(error);
+        console.log(error.message);
         return undefined;
     }
 }
@@ -85,7 +86,6 @@ export const validateBody = async (req) => {
         req.name = req.name.TestName() ? req.name : null;
     }
 
-    console.log(req);
     return {
         birthday: req.birthday || undefined,
         links: req.links || undefined,

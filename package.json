@@ -21,8 +21,8 @@
     "db:init": "prisma init",
     "db:studio": "prisma studio",
     "db:generate": "prisma generate",
-    "db:pull": "prisma db pull && prisma generate",
-    "db:push": "prisma db push && prisma generate",
+    "db:pull": "npm run db:up & prisma db pull && prisma generate",
+    "db:push": "npm run db:up & prisma db push && prisma generate",
     "prepare": "prisma db push && prisma generate"
   },
   "keywords": [],
