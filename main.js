@@ -10,7 +10,8 @@ server.listen(PORT, () => {
     console.log('\nServer', {
       status: 'running',
       url: (process.env.HTTPS ? 'https://' : 'http://') + 'localhost:' + PORT,
-      NODE_ENV: process.env.NODE_ENV||'development'
+      NODE_ENV: process.env.NODE_ENV||'development',
+      DATABASE: process.env.DATABASE_URL || 'not set',
     }, '\n');
   }
 });

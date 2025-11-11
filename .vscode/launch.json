@@ -12,8 +12,8 @@
             "request": "launch",
             "restart": true,
             "runtimeExecutable": "nodemon",
-            "preLaunchTask": "npm: db:upd",
-            "postDebugTask": "npm: db:stop",
+            // "preLaunchTask": "npm: db:upd",
+            // "postDebugTask": "npm: db:stop",
             "skipFiles": [
                 "<node_internals>/**"
             ],
